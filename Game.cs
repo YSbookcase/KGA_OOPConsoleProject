@@ -15,6 +15,35 @@ namespace MiniGameProject
         }
 
 
+        public static void Render()
+        {
+
+
+        }
+
+        public static void Input()
+        {
+
+
+        }
+
+        public static void Result()
+        {
+
+        }
+
+        public static void Strat()
+        {
+
+
+        }
+
+        public static void End()
+        {
+
+
+        }
+
 
     }
 }

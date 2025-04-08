@@ -11,6 +11,9 @@ namespace MiniGameProject
         public Vector2 position;
         public bool[,] map;
 
+        public Inventory inventory = new Inventory();
+
+
         public int x
         {
             get => (int)position.x;

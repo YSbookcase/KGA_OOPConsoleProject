@@ -21,11 +21,9 @@ namespace MiniGameProject.Scene
             {
                 go.Print();
             }
-
-
             Game.Player.Print();
 
-
+            Console.SetCursorPosition(0, map.GetLength(0) + 2);
 
         }
 

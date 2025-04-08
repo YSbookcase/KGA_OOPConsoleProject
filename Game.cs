@@ -15,7 +15,8 @@ namespace MiniGameProject
 
         private static string currentSceneName;
         public static string CurrentSceneName { get; private set; }
-        
+        public static string prevSceneName;
+
 
         public static bool gameOver;
         public static bool gameClose = false;
@@ -59,6 +60,8 @@ namespace MiniGameProject
         public static void ChangeScene(string sceneName)
         {
 
+            prevSceneName = curScene.name;
+
             if (string.IsNullOrEmpty(sceneName))
             {
                 Console.WriteLine("⚠ sceneName이 null 또는 빈 문자열입니다.");
@@ -70,9 +73,10 @@ namespace MiniGameProject
                 Console.WriteLine($"씬 '{sceneName}'이 등록되지 않았습니다.");
                 return;
             }
-
+            curScene.Exit();
             currentSceneName = sceneName;
             curScene = sceneDic[sceneName];
+            curScene.Enter();
             // 바로 출력하고 싶으면 여기에 실행 흐름 넣기
             // 그렇지 않으면 Run() 루프에서 반영됨
         }

@@ -9,6 +9,7 @@ namespace MiniGameProject
     public class Player
     {
         public Vector2 position;
+        public bool[,] map;
 
         public int x
         {

@@ -40,6 +40,9 @@ namespace MiniGameProject
 
         public abstract void Result();
 
+        public virtual void Enter() { }
+        public virtual void Exit() { }
+
 
 
     }

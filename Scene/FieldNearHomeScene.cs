@@ -1,5 +1,4 @@
-﻿using MiniGameProject;
-using MiniGameProject.GameObjects;
+﻿using MiniGameProject.GameObjects;
 
 namespace MiniGameProject.Scene
 {
@@ -29,14 +28,7 @@ namespace MiniGameProject.Scene
             // 이동 가능 맵 생성
             this.map = new bool[mapData.GetLength(0), mapData.GetLength(1)];
 
-            //for (int y = 0; y < map.GetLength(0); y++)
-            //{
-            //    for (int x = 0; x < map.GetLength(1); x++)
-            //    {
-            //        Console.Write(map[y, x] ? '.' : '#');
-            //    }
-            //    Console.WriteLine();
-            //}
+
 
 
             for (int y = 0; y < map.GetLength(0); y++)
@@ -50,12 +42,26 @@ namespace MiniGameProject.Scene
 
             gameObjects = new List<GameObject>();
             gameObjects.Add(new Place("HomeScene", 'H', new Vector2(1, 1)));
-            
+
 
             Game.Player.position.x = 1;
             Game.Player.position.y = 1;
-            
-        }
-    }
 
+
+
+        }
+
+        public override void Enter()
+        {
+            if (Game.prevSceneName == "HomeScene")
+            {
+                Game.Player.position = new Vector2(1, 1);
+            }
+            Game.Player.map = map;
+        }
+
+
+    }
 }
+
+

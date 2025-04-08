@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Scene\" />
+    <None Include="Scene\TitleScene.cs" />
   </ItemGroup>
 
 </Project>

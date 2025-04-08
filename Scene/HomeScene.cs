@@ -45,7 +45,7 @@ namespace MiniGameProject.Scene
             {
                 case ConsoleKey.D1:
                     Utility.PressAnyKey("마을 밖으로 나갑니다.");
-                    Game.ChangeScene("Test1Scene");
+                    Game.ChangeScene("FieldNearHome");
                     break;
             }
 

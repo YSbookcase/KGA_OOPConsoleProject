@@ -10,6 +10,18 @@ namespace MiniGameProject
     {
         public Vector2 position;
 
+        public int x
+        {
+            get => (int)position.x;
+            set => position.x = value;
+        }
+
+        public int y
+        {
+            get => (int)position.y;
+            set => position.y = value;
+        }
+
 
 
         public void Print()
@@ -25,7 +37,7 @@ namespace MiniGameProject
 
 
 
-        public void Action(ConsoleKey input)
+        public void Action(ConsoleKey input, bool[,] map)
         {
             switch (input)
             {
@@ -37,7 +49,7 @@ namespace MiniGameProject
                 case ConsoleKey.A:
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
-                    Move(input);
+                    Move(input, map);
                     break;
                     //case ConsoleKey.I:
                     //    inventory.Open();
@@ -45,7 +57,7 @@ namespace MiniGameProject
             }
         }
 
-        private void Move(ConsoleKey input)
+        private void Move(ConsoleKey input, bool[,] map)
         {
             Vector2 targetPos = position;
 
@@ -69,8 +81,13 @@ namespace MiniGameProject
                     break;
             }
 
-            position = targetPos;
+            
 
+            // ⚠ 이동 가능할 때만 위치 변경
+            if (map[y, x])
+            {
+                position = targetPos;
+            }
         }
     }
 }

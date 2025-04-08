@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MiniGameProject.Scene
+﻿namespace MiniGameProject.Scene
 {
     public class TitleScene : BasicScene
     {
+
+        private ConsoleKey input;
         public TitleScene()
         {
             name = "Title";
         }
-        
+
 
         public override void Render()
         {
@@ -34,17 +30,50 @@ namespace MiniGameProject.Scene
 
         public override void Input()
         {
-            Console.ReadKey(true);
-        }
-
-        public override void Result()
-        {
-            
+            input = Console.ReadKey(true).Key;
         }
 
         public override void Update()
         {
-            
+
+        }
+
+
+
+        public override void Result()
+        {
+            if(input == ConsoleKey.D1)
+            {
+       
+
+
+
+            }
+            else if (input == ConsoleKey.D3)
+            {
+
+
+                Console.WriteLine("정말로 게임을 종료하시겠습니까?. Y/N");
+                input = Console.ReadKey(true).Key;
+
+                if (input == ConsoleKey.Y)
+                {
+                Console.Clear();
+                Game.gameOver = true;
+                Game.gameClose = true;
+                Console.WriteLine("게임을 종료합니다.");
+                Console.WriteLine("아무 키나 누르면 종료됩니다...");
+                Console.ReadKey(true);
+                Environment.Exit(0);
+               
+                }
+                else
+                {
+                    Console.Clear();
+
+                }
+
+            }
         }
     }
 }

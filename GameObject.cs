@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace MiniGameProject
 {
-    public class GameObject
+    public abstract class GameObject : IInteractable
     {
         public ConsoleColor color;
         public char symbol;
         public Vector2 position;
         
 
-        public GameObject(ConsoleColor color, char symbol, Vector2 position)
+        public  GameObject(ConsoleColor color, char symbol, Vector2 position)
         {
             this.color = color;
             this.symbol = symbol;
@@ -22,7 +22,7 @@ namespace MiniGameProject
             
         }
 
-        public void Print()
+        public  void Print()
         {
             Console.SetCursorPosition(position.x, position.y);
             Console.ForegroundColor = color;
@@ -30,6 +30,6 @@ namespace MiniGameProject
             Console.ResetColor();
         }
 
-
+        public abstract void Interact(Player player);
     }
 }

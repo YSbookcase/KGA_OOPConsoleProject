@@ -79,14 +79,17 @@ namespace MiniGameProject
         public static void Run()
         {
             // 🔽 커서 숨기기
-            Console.CursorVisible = false;  
+            Console.CursorVisible = false;
+
+
+            Start();
 
             while (gameClose == false)
             {
+                // ✅ 루프 진입 전에 반드시 false로 초기화
+                gameOver = false; 
 
-                Start();
-
-            while(gameOver == false)
+                while (gameOver == false)
             {
                     Console.Clear();
                     Console.WriteLine();
@@ -120,6 +123,32 @@ namespace MiniGameProject
         {
 
 
+        }
+
+
+        public static void ReloadScene()
+        {
+            if (currentSceneName == null)
+                return;
+
+            // 새 씬 생성
+            BasicScene newScene = currentSceneName switch
+            {
+                "FieldNearHome" => new FieldNearHomeScene(),
+                "HomeScene" => new HomeScene(),
+                "Title" => new TitleScene(),
+                _ => null
+            };
+
+            if (newScene == null)
+            {
+                Console.WriteLine($"씬 '{currentSceneName}'을 다시 만들 수 없습니다.");
+                return;
+            }
+
+            sceneDic[currentSceneName] = newScene;   // 🔄 기존 씬 덮어쓰기
+            curScene = newScene;
+            GameOver();  // 루프 탈출해서 반영
         }
 
 

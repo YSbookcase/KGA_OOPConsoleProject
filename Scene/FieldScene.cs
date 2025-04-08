@@ -19,10 +19,11 @@ namespace MiniGameProject.Scene
         {
             Console.Clear();
             PrintMap(mapData);
+            foreach (GameObject go in gameObjects)
+            {
+                go.Print();
+            }
 
-            int x = Game.Player.x;
-            int y = Game.Player.y;
-            Console.WriteLine($"현재 위치: ({x}, {y}) - map={map[y, x]}");
 
             Game.Player.Print();
 
@@ -48,15 +49,18 @@ namespace MiniGameProject.Scene
             else if (input == ConsoleKey.R)
             {
                 Console.WriteLine("초기화합니다...");
-                // 씬을 재시작하거나 플레이어 위치를 초기화
-                Game.ChangeScene(Game.CurrentSceneName);
+                Game.ReloadScene();
 
 
             }
             else if (input == ConsoleKey.Escape)
             {
-                Console.WriteLine("타이틀 화면으로 돌아갑니다...");
-                Game.ChangeScene("Title");
+                Console.Clear();
+                Console.WriteLine();
+                Game.ChangeScene(Game.Scenes.Title.ToString());
+                Utility.PressAnyKey("타이틀 화면으로 돌아갑니다...");
+                Game.GameOver();
+                
             }
         }
 
@@ -95,5 +99,9 @@ namespace MiniGameProject.Scene
             Console.WriteLine("○까지 도달하면 성공입니다.");
             Console.WriteLine("시작화면으로 이동하고 싶다면 ESC를 누르세요.");
         }
+
+
+
+
     }
 }

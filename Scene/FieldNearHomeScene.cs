@@ -1,4 +1,7 @@
-﻿namespace MiniGameProject.Scene
+﻿using MiniGameProject;
+using MiniGameProject.GameObjects;
+
+namespace MiniGameProject.Scene
 {
 
 
@@ -44,6 +47,10 @@
                     map[y, x] = (tile == '.' || tile == '○'); // 이동 가능한 타일
                 }
             }
+
+            gameObjects = new List<GameObject>();
+            gameObjects.Add(new Place("HomeScene", 'H', new Vector2(1, 1)));
+            
 
             Game.Player.position.x = 1;
             Game.Player.position.y = 1;

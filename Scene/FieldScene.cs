@@ -1,4 +1,6 @@
-﻿namespace MiniGameProject.Scene
+﻿using MiniGameProject.GameObjects;
+
+namespace MiniGameProject.Scene
 {
     public class FieldScene : BasicScene
     {
@@ -7,7 +9,7 @@
         protected char[,] mapData;
         protected bool[,] map;
         protected List<GameObject> gameObjects;
-
+        private bool justReloaded = false;
 
 
 
@@ -48,11 +50,10 @@
             else if (input == ConsoleKey.R)
             {
                 Console.WriteLine("초기화합니다...");
+                justReloaded = true;
                 Game.ReloadScene();
-
-
             }
-            
+
         }
 
         public override void Update()
@@ -62,7 +63,32 @@
 
         public override void Result()
         {
-         
+
+
+            foreach (GameObject go in gameObjects)
+            {
+                if (justReloaded)
+                {
+                    justReloaded = false; // 한 번은 무시
+                    return;
+                }
+
+
+                if (go is Place place)
+                {
+                    if (Game.Player.position.Equals(place.position))
+                    {
+                        Console.Clear();
+                        Utility.PressAnyKey($"다시 집으로 들어간다.");
+
+                        place.Interact(Game.Player);   // 🔥 핵심: Interact 호출
+                        Game.CurScene.ResetTransition();
+                        Game.GameOver();
+                        return;
+                    }
+                }
+            }
+
             // 성공 판정 등 가능
             if (mapData[Game.Player.y, Game.Player.x] == '○')
             {

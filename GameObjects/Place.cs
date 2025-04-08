@@ -25,5 +25,10 @@ namespace MiniGameProject.GameObjects
 
         // 필요 시 추가 기능 구현 가능
 
+        public override string ToString()
+        {
+            return scene; // 또는 $"Place: {scene}" 도 가능
+        }
+
     }
 }

@@ -14,13 +14,15 @@ namespace MiniGameProject
         public static BasicScene CurScene => curScene;
 
         private static string currentSceneName;
-        public static string CurrentSceneName { get; private set; }
+        public static string CurrentSceneName => currentSceneName;
         public static string prevSceneName;
 
 
         public static bool gameOver;
         public static bool gameClose = false;
-        
+
+        public static bool JustReloaded = false;
+
         private static Player player;
 
         public static Player Player { get { return player; } }
@@ -59,7 +61,7 @@ namespace MiniGameProject
 
         public static void ChangeScene(string sceneName)
         {
-
+            
             prevSceneName = curScene.name;
 
             if (string.IsNullOrEmpty(sceneName))
@@ -148,11 +150,12 @@ namespace MiniGameProject
                 return;
 
             // 새 씬 생성
-            BasicScene newScene = currentSceneName switch
+            Scenes sceneEnum = Enum.Parse<Scenes>(currentSceneName);
+            BasicScene newScene = sceneEnum switch
             {
-                "FieldNearHome" => new FieldNearHomeScene(),
-                "HomeScene" => new HomeScene(),
-                "Title" => new TitleScene(),
+                Scenes.FieldNearHome => new FieldNearHomeScene(),
+                Scenes.HomeScene => new HomeScene(),
+                Scenes.Title => new TitleScene(),
                 _ => null
             };
 

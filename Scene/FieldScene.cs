@@ -19,17 +19,33 @@ namespace MiniGameProject.Scene
         {
             Console.Clear();
             PrintMap(mapData);
+
+            int x = Game.Player.x;
+            int y = Game.Player.y;
+            Console.WriteLine($"현재 위치: ({x}, {y}) - map={map[y, x]}");
+
             Game.Player.Print();
+
+            
+
         }
 
         public override void Choice()
         {
-            input = Console.ReadKey(true).Key;
+            
         }
 
         public override void Input()
         {
-            if (input == ConsoleKey.R)
+            input = Console.ReadKey(true).Key;
+
+            if (input == ConsoleKey.Spacebar)
+            {
+                Game.Player.x = 1;
+                Game.Player.y = 1;
+            }
+
+            else if (input == ConsoleKey.R)
             {
                 Console.WriteLine("초기화합니다...");
                 // 씬을 재시작하거나 플레이어 위치를 초기화

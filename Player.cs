@@ -60,6 +60,7 @@ namespace MiniGameProject
         private void Move(ConsoleKey input, bool[,] map)
         {
             Vector2 targetPos = position;
+            
 
             switch (input)
             {
@@ -81,7 +82,12 @@ namespace MiniGameProject
                     break;
             }
 
-            
+            int x = (int)targetPos.x;
+            int y = (int)targetPos.y;
+
+            // ✅ 범위 초과 방지
+            if (y < 0 || y >= map.GetLength(0) || x < 0 || x >= map.GetLength(1))
+                return;
 
             // ⚠ 이동 가능할 때만 위치 변경
             if (map[y, x])

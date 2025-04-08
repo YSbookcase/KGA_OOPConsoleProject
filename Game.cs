@@ -51,10 +51,18 @@ namespace MiniGameProject
 
             curScene = sceneDic[Scenes.Title.ToString()];
             currentSceneName = Scenes.Title.ToString();
+
         }
 
         public static void ChangeScene(string sceneName)
         {
+
+            if (string.IsNullOrEmpty(sceneName))
+            {
+                Console.WriteLine("⚠ sceneName이 null 또는 빈 문자열입니다.");
+                return;
+            }
+
             if (!sceneDic.ContainsKey(sceneName))
             {
                 Console.WriteLine($"씬 '{sceneName}'이 등록되지 않았습니다.");

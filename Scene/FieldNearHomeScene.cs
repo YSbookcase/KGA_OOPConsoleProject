@@ -25,6 +25,17 @@
 
             // 이동 가능 맵 생성
             this.map = new bool[mapData.GetLength(0), mapData.GetLength(1)];
+
+            //for (int y = 0; y < map.GetLength(0); y++)
+            //{
+            //    for (int x = 0; x < map.GetLength(1); x++)
+            //    {
+            //        Console.Write(map[y, x] ? '.' : '#');
+            //    }
+            //    Console.WriteLine();
+            //}
+
+
             for (int y = 0; y < map.GetLength(0); y++)
             {
                 for (int x = 0; x < map.GetLength(1); x++)

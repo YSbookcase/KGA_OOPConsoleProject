@@ -12,7 +12,18 @@ namespace MiniGameProject
     public abstract class BasicScene
     {
         public string name;
-        public int input;
+        public ConsoleKey InputKey { get; protected set; }
+        public string NextSceneName { get; protected set; }
+        public bool ShouldExitScene { get; protected set; }
+
+      
+
+        public virtual void ResetTransition()
+        {
+            InputKey = ConsoleKey.NoName;
+            NextSceneName = null;
+            ShouldExitScene = false;
+        }
 
         public abstract void Render();
 

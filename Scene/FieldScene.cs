@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-
-namespace MiniGameProject.Scene
+﻿namespace MiniGameProject.Scene
 {
     public class FieldScene : BasicScene
     {
@@ -12,7 +8,7 @@ namespace MiniGameProject.Scene
         protected bool[,] map;
         protected List<GameObject> gameObjects;
 
-  
+
 
 
         public override void Render()
@@ -27,18 +23,21 @@ namespace MiniGameProject.Scene
 
             Game.Player.Print();
 
-            
+
 
         }
 
         public override void Choice()
         {
-            
+
         }
 
         public override void Input()
         {
+            Utility.ClearInputBuffer();
             input = Console.ReadKey(true).Key;
+
+
 
             if (input == ConsoleKey.Spacebar)
             {
@@ -53,15 +52,7 @@ namespace MiniGameProject.Scene
 
 
             }
-            else if (input == ConsoleKey.Escape)
-            {
-                Console.Clear();
-                Console.WriteLine();
-                Game.ChangeScene(Game.Scenes.Title.ToString());
-                Utility.PressAnyKey("타이틀 화면으로 돌아갑니다...");
-                Game.GameOver();
-                
-            }
+            
         }
 
         public override void Update()
@@ -71,12 +62,26 @@ namespace MiniGameProject.Scene
 
         public override void Result()
         {
+         
             // 성공 판정 등 가능
             if (mapData[Game.Player.y, Game.Player.x] == '○')
             {
                 Console.WriteLine("성공했습니다!");
                 Console.ReadKey();
-                Game.ChangeScene("Title");
+                Game.ChangeScene(Game.Scenes.Title.ToString());
+                Game.CurScene.ResetTransition();  // ✅ 이전 입력 제거
+                Game.GameOver();                  // ✅ 루프 종료 → TitleScene 반영
+            }
+            else if (input == ConsoleKey.Escape)
+            {
+                Console.Clear();
+                Console.WriteLine();
+                Utility.PressAnyKey("타이틀 화면으로 돌아갑니다...");
+                Game.ChangeScene(Game.Scenes.Title.ToString());
+                Game.CurScene.ResetTransition(); // ❗ 여기가 중요
+                Console.WriteLine($"[DEBUG] Result InputKey: {input}");
+                Game.GameOver();
+
             }
         }
 
@@ -100,7 +105,12 @@ namespace MiniGameProject.Scene
             Console.WriteLine("시작화면으로 이동하고 싶다면 ESC를 누르세요.");
         }
 
-
+        public override void ResetTransition()
+        {
+            InputKey = ConsoleKey.NoName;
+            NextSceneName = null;
+            ShouldExitScene = false;
+        }
 
 
     }

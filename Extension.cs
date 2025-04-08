@@ -32,6 +32,12 @@
 
 
 
+        public static void ClearInputBuffer()
+        {
+            while (Console.KeyAvailable)
+                Console.ReadKey(true);
+        }
+
     }
 
 

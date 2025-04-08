@@ -11,6 +11,8 @@ namespace MiniGameProject
     {
         private static Dictionary<string, BasicScene> sceneDic;
         private static BasicScene curScene;
+        public static BasicScene CurScene => curScene;
+
         private static string currentSceneName;
         public static string CurrentSceneName { get; private set; }
         
@@ -88,19 +90,29 @@ namespace MiniGameProject
             {
                 // ✅ 루프 진입 전에 반드시 false로 초기화
                 gameOver = false; 
-
+                
                 while (gameOver == false)
             {
                     Console.Clear();
-                    Console.WriteLine();
                     curScene.Render();
                     curScene.Choice();
                     curScene.Input();
                     Console.WriteLine();
                     curScene.Update();
                     curScene.Result();
-                    
-            }
+
+
+                    if (curScene.ShouldExitScene)
+                    {
+                        if (!string.IsNullOrEmpty(curScene.NextSceneName))
+                            Game.ChangeScene(curScene.NextSceneName);
+
+                        curScene.ResetTransition();
+                        Game.GameOver(); // 씬 전환
+                    }
+
+
+                }
 
 
             }

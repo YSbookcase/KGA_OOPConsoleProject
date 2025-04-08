@@ -30,6 +30,7 @@
 
         public override void Input()
         {
+            Utility.ClearInputBuffer();
             input = Console.ReadKey(true).Key;
         }
 
@@ -42,37 +43,22 @@
 
         public override void Result()
         {
-            if(input == ConsoleKey.D1)
+            switch (input)
             {
+                case ConsoleKey.D1:
+                    NextSceneName = Game.Scenes.HomeScene.ToString();
+                    ShouldExitScene = true;
+                    break;
 
-                Game.ChangeScene("HomeScene");
-
-
-            }
-            else if (input == ConsoleKey.D3)
-            {
-
-
-                Console.WriteLine("정말로 게임을 종료하시겠습니까?. Y/N");
-                input = Console.ReadKey(true).Key;
-
-                if (input == ConsoleKey.Y)
-                {
-                Console.Clear();
-                Game.gameOver = true;
-                Game.gameClose = true;
-                Console.WriteLine("게임을 종료합니다.");
-                Console.WriteLine("아무 키나 누르면 종료됩니다...");
-                Console.ReadKey(true);
-                Environment.Exit(0);
-               
-                }
-                else
-                {
-                    Console.Clear();
-
-                }
-
+                case ConsoleKey.D3:
+                    Console.WriteLine("정말로 종료하시겠습니까? Y/N");
+                    var confirm = Console.ReadKey(true).Key;
+                    if (confirm == ConsoleKey.Y)
+                    {
+                        Game.gameClose = true;
+                        Environment.Exit(0);
+                    }
+                    break;
             }
         }
     }

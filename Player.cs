@@ -61,6 +61,22 @@ namespace MiniGameProject
             curHP = Math.Clamp(hp, 0, maxHP);
         }
 
+        // ✅ 돈 추가
+        public void AddGold(int amount)
+        {
+            gold += amount;
+        }
+
+        // ✅ 돈 사용 (성공 여부 반환)
+        public bool SpendGold(int amount)
+        {
+            if (gold >= amount)
+            {
+                gold -= amount;
+                return true;
+            }
+            return false;
+        }
 
         public void Print()
         {

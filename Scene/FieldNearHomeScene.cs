@@ -38,15 +38,41 @@ namespace MiniGameProject.Scene
                 }
             }
 
+
             gameObjects = new List<GameObject>();
             gameObjects.Add(new Place(Game.Scenes.HomeScene.ToString(), 'H', new Vector2(1, 1)));
             gameObjects.Add(new Place(Game.Scenes.ForestFieldScene.ToString(), 'F', new Vector2(6, 1)));
             gameObjects.Add(new Potion(new Vector2(1, 5)));
 
             gameObjects.Add(new NPC(
-    "???",
-    new Vector2(3, 5),
-    "으..으..."
+    "이름 모를 여성",
+    new Vector2(3, 5), new string[] {
+    "으..으...",
+    "[플레이어] 괜찮으세요?",
+    "[속마음] (이 사람 상태가 심각해 보인다...)"},
+     (npc, player) =>
+     {
+         int choice = Utility.SelectOption("무엇을 하시겠습니까?", "도와준다", "그냥 둔다");
+
+         if (choice == 0)
+         {
+             Game.Flag_RescuedNpc = true;
+             Utility.PressAnyKey("당신은 그녀를 도와주고 집으로 데려갔습니다.");
+
+             // ✅ 현재 씬의 gameObjects에서 NPC 제거
+             
+
+             Game.ChangeScene("HomeScene");
+         }
+         else
+         {
+             Game.Flag_RescuedNpc = false;
+             Utility.PressAnyKey("당신은 그녀를 무시하고 지나쳤습니다.");
+         }
+
+         
+     }
+
 ));
 
             Game.Player.position.x = 1;

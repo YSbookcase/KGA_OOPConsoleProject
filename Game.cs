@@ -25,6 +25,10 @@ namespace MiniGameProject
         public static Player Player { get { return player; } }
 
 
+        public static bool Flag_RescuedNpc = false;
+
+
+
         public enum Scenes
         {
             Title,
@@ -39,7 +43,7 @@ namespace MiniGameProject
 
         public static void Start()
         {
-
+            Utility.SmartClear();
 
             //게임 설정
             gameOver = false;
@@ -105,7 +109,7 @@ namespace MiniGameProject
 
                 while (gameOver == false)
                 {
-                    Console.Clear();
+                    Utility.SmartClear();
                     curScene.Render();
                     curScene.Choice();
                     curScene.Input();

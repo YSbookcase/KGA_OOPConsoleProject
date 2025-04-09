@@ -32,8 +32,10 @@ namespace MiniGameProject.Scene
       
         public override void Render()
         {
+            Utility.SmartClear();
             Console.WriteLine("장소 : 아늑한 나의 집");
             Console.WriteLine("풀내음이 가득하다.");
+
 
             var (_, currentY) = Console.GetCursorPosition();
             int dialogueStartY = currentY + 1;
@@ -42,11 +44,22 @@ namespace MiniGameProject.Scene
             {
                 if (!introDialogueShown)
                 {
+                    
                     Utility.ShowAtFixedPositionLines(dialogueStartY, "모든 것이 잘 될 것 같은 날이다.", "오늘 하루도 즐겁게 보내자.");
                     Utility.ShowAtFixedPosition("당신", "밖이 뭔가 이상하네 나갈까?", dialogueStartY);
                     Utility.ShowAtFixedPosition("당신", "나가보자", dialogueStartY);
                     introDialogueShown = true;
                 }
+            }
+
+            if (Game.Flag_RescuedNpc)
+            {
+                Utility.ShowAtFixedPosition("속마음", "어쩌다가 이렇게 된거지? 일단 급한대로 응급처치는 끝났네", dialogueStartY);
+                Utility.ShowAtFixedPosition("속마음", "하루 정도 좀 더 지켜보자.", dialogueStartY);
+                Utility.ShowAtFixedPosition("System", "하루 후....", dialogueStartY);
+                Utility.ShowAtFixedPosition("여자", "고맙습니다. 구해주셔서....", dialogueStartY);
+                Utility.ShowAtFixedPosition("여자", "혹시 여기가 어디지요?", dialogueStartY);
+                Utility.ShowAtFixedPosition("당신", "변방에 조그만 유유자적 할 수 있는 동네지요.", dialogueStartY);
             }
 
         }

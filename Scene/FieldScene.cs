@@ -32,6 +32,12 @@ namespace MiniGameProject.Scene
 
             var (_, currentY) = Console.GetCursorPosition();
             dialogueStartY = currentY + 1;
+
+            if (currentY >= Console.WindowHeight - 2)
+            {
+                Console.SetCursorPosition(0, Console.WindowHeight - 2); // 스크롤 방지
+            }
+
         }
 
         public override void Choice()
@@ -100,6 +106,26 @@ namespace MiniGameProject.Scene
             {
                 gameObjects.Remove(go);
             }
+
+            foreach (GameObject go in gameObjects)
+            {
+                if (go is NPC npc && Game.Player.position.Equals(npc.position))
+                {
+                    npc.Interact(Game.Player);
+
+                    // 대화 이후 제거 조건
+                    if (Game.Flag_RescuedNpc)
+                    {
+                        toRemove.Add(npc);
+                    }
+                }
+            }
+
+            foreach (GameObject go in toRemove)
+            {
+                gameObjects.Remove(go);
+            }
+
 
             // 3. 장소 전환
             foreach (GameObject go in gameObjects)

@@ -12,23 +12,48 @@ namespace MiniGameProject.GameObjects
         private readonly string npcName;
         private readonly string[] dialogues;
 
+        private int dialogueIndex = 0;
+
+        // ✅ 대화 이후 추가 행동을 위한 델리게이트
+        private readonly Action<NPC, Player>? afterTalkAction;
+
+        // 1. 기본 대화용 (params 사용 가능)
         public NPC(string npcName, Vector2 position, params string[] dialogues)
+            : this(npcName, position, dialogues, null)
+        { }
+
+        // 2. 행동 포함 대화용
+        public NPC(string npcName, Vector2 position, string[] dialogues, Action<NPC, Player>? afterTalkAction)
             : base(ConsoleColor.Green, 'N', position)
         {
             this.npcName = npcName ?? "???";
             this.dialogues = dialogues ?? new string[] { "..." };
+            this.afterTalkAction = afterTalkAction;
         }
 
         public override void Interact(Player player)
         {
-            // 안전한 시작 위치 계산
-            int startY = Math.Min(Console.GetCursorPosition().Item2 + 1, Console.WindowHeight - dialogues.Length - 3);
+            int maxY = Console.WindowHeight - 6;
+            int startY = Math.Min(Console.GetCursorPosition().Item2 + 1, maxY);
 
-            foreach (string line in dialogues)
+            foreach (string rawLine in dialogues)
             {
-                Utility.ShowAtFixedPosition(npcName, line, startY);
-                startY += 1; // 다음 대사를 바로 아래 줄로 출력
+                string speaker = npcName;
+                string text = rawLine;
+
+                if (rawLine.StartsWith("[") && rawLine.Contains("]"))
+                {
+                    int endIdx = rawLine.IndexOf(']');
+                    speaker = rawLine.Substring(1, endIdx - 1);
+                    text = rawLine.Substring(endIdx + 1).Trim();
+                }
+
+                Utility.ShowAtFixedPosition(speaker, text, startY);
             }
+
+            // ✅ 이 부분이 정말 중요
+            afterTalkAction?.Invoke(this, player);
+
         }
     }
 }

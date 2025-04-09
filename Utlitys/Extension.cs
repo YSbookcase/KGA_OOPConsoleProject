@@ -102,30 +102,36 @@
         {
             int clearLines = 4;
 
-            // 🔧 1. 기존 줄 클리어 (출력 전에 먼저)
             for (int i = 0; i < clearLines; i++)
             {
                 Console.SetCursorPosition(0, y + i);
-                Console.Write(new string(' ', Console.WindowWidth - 1)); // 🔧 -1 보정
+                Console.Write(new string(' ', Console.WindowWidth - 1));
             }
 
-            // 2. 출력
             Console.SetCursorPosition(0, y);
-            Console.WriteLine(new string('-', Console.WindowWidth - 1)); // 🔧
-            Console.WriteLine($"[{speaker}] {text}".PadRight(Console.WindowWidth - 1)); // 🔧
-            Console.WriteLine("(Spacebar를 눌러 계속...)".PadRight(Console.WindowWidth - 1)); // 🔧
+            Console.WriteLine(new string('-', Console.WindowWidth - 1));
 
-            // 3. 입력 대기
+            // 🔽 색상 지정
+            if (speaker == "속마음")
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+            else
+                Console.ForegroundColor = ConsoleColor.Cyan;
+
+            Console.WriteLine($"[{speaker}] {text}".PadRight(Console.WindowWidth - 1));
+
+            // ✅ 색상 초기화
+            Console.ResetColor();
+
+            Console.WriteLine("(Spacebar를 눌러 계속...)".PadRight(Console.WindowWidth - 1));
+
             while (Console.ReadKey(true).Key != ConsoleKey.Spacebar) { }
 
-            // 4. 대사 영역 클리어 (마무리로 다시 지움)
             for (int i = 0; i < clearLines; i++)
             {
                 Console.SetCursorPosition(0, y + i);
-                Console.Write(new string(' ', Console.WindowWidth - 1)); // 🔧
+                Console.Write(new string(' ', Console.WindowWidth - 1));
             }
 
-            // 5. 커서 위치 복원
             Console.SetCursorPosition(0, y);
         }
 
@@ -160,8 +166,106 @@
             // 5. 커서 복원
             Console.SetCursorPosition(0, y);
         }
+
+        #region 콘솔창 크기 변경에 따른 잔상 대응
+
+        private static int prevWidth = -1;
+        private static int prevHeight = -1;
+
+        public static void ForceFixConsoleSize()
+        {
+            try
+            {
+                int width = Console.WindowWidth;
+                int height = Console.WindowHeight;
+
+                // 예외 방지를 위해 순서 중요: 버퍼 줄이기 전에 창 줄이기
+                if (Console.BufferWidth > width)
+                    Console.SetBufferSize(width, Console.BufferHeight);
+
+                if (Console.BufferHeight > height)
+                    Console.SetBufferSize(Console.BufferWidth, height);
+
+                // 이제 창 크기보다 버퍼 작거나 같게 됐으니, 완전 고정
+                if (Console.BufferWidth != width || Console.BufferHeight != height)
+                {
+                    Console.SetBufferSize(width, height);
+                }
+            }
+            catch (IOException ex)
+            {
+                // 콘솔이 줄어든 상황에서 예외 방지
+                Console.WriteLine($"[경고] 콘솔 크기 고정 중 오류 발생: {ex.Message}");
+            }
+        }
+
+        public static void SmartClear()
+        {
+            ForceFixConsoleSize(); // 👈 항상 먼저 버퍼 고정
+
+            int currentWidth = Console.WindowWidth;
+            int currentHeight = Console.WindowHeight;
+
+            if (currentWidth != prevWidth || currentHeight != prevHeight)
+            {
+                prevWidth = currentWidth;
+                prevHeight = currentHeight;
+
+                FullWipeClear();
+            }
+            else
+            {
+                Console.Clear();
+            }
+
+            Console.SetCursorPosition(0, 0);
+        }
+
+        public static void FullWipeClear()
+        {
+            int width = Console.WindowWidth;
+            int height = Console.WindowHeight;
+
+            Console.SetCursorPosition(0, 0);
+
+            for (int i = 0; i < height; i++)
+            {
+                Console.WriteLine(new string(' ', width));
+            }
+
+            Console.SetCursorPosition(0, 0);
+        }
+
+
+
+        #endregion
+
+
+        public static int SelectOption(string question, params string[] options)
+        {
+            Console.WriteLine(question);
+            for (int i = 0; i < options.Length; i++)
+            {
+                Console.WriteLine($" {i + 1}. {options[i]}");
+            }
+
+            while (true)
+            {
+                var key = Console.ReadKey(true).Key;
+
+                if (key >= ConsoleKey.D1 && key <= ConsoleKey.D9)
+                {
+                    int selected = (int)(key - ConsoleKey.D1);
+                    if (selected < options.Length)
+                        return selected; // 0부터 시작
+                }
+            }
+        }
+
+
     }
-
-
 }
+
+
+
 

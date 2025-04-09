@@ -8,10 +8,10 @@ namespace MiniGameProject.Scene
     {
         public ForestFieldScene()
         {
-            name = "ForestFieldScene";
+            name = Game.Scenes.ForestFieldScene.ToString();
 
             // 맵 데이터 설정
-            this.mapData = new char[8, 8]
+            this.mapData = new char[7, 8]
             {
             /*0*/{'▒','▒','▒','▒','▒','▒','▒','▒'},
             /*1*/{'▒','.','.','.','.','.','.','▒'},
@@ -19,7 +19,6 @@ namespace MiniGameProject.Scene
             /*3*/{'▒','.','.','.','.','.','.','▒'},
             /*4*/{'▒','.','.','.','.','.','.','▒'},
             /*5*/{'▒','.','.','.','.','.','.','▒'},
-            /*6*/{'▒','.','.','.','.','.','.','▒'},
             /*7*/{'▒','▒','▒','▒','▒','▒','▒','▒'},
             };
 
@@ -35,7 +34,7 @@ namespace MiniGameProject.Scene
             }
 
             gameObjects = new List<GameObject>();
-            gameObjects.Add(new Place("FieldNearHomeScene", 'N', new Vector2(1, 1)));
+            gameObjects.Add(new Place(Game.Scenes.FieldNearHomeScene.ToString(), 'N', new Vector2(1, 1)));
            
 
             Game.Player.position.x = 1;
@@ -47,7 +46,7 @@ namespace MiniGameProject.Scene
 
         public override void Enter()
         {
-            if (Game.prevSceneName == "HomeScene")
+            if (Game.prevSceneName == Game.Scenes.FieldNearHomeScene.ToString())
             {
                 Game.Player.position = new Vector2(1, 1);
             }

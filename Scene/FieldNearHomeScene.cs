@@ -8,7 +8,7 @@ namespace MiniGameProject.Scene
     {
         public FieldNearHomeScene()
         {
-            name = "FieldNearHomeScene";
+            name = Game.Scenes.FieldNearHomeScene.ToString();
 
             // 맵 데이터 설정
             this.mapData = new char[10, 8]
@@ -37,8 +37,8 @@ namespace MiniGameProject.Scene
             }
 
             gameObjects = new List<GameObject>();
-            gameObjects.Add(new Place("HomeScene", 'H', new Vector2(1, 1)));
-            gameObjects.Add(new Place("ForestField", 'F', new Vector2(6, 1)));
+            gameObjects.Add(new Place(Game.Scenes.HomeScene.ToString(), 'H', new Vector2(1, 1)));
+            gameObjects.Add(new Place(Game.Scenes.ForestFieldScene.ToString(), 'F', new Vector2(6, 1)));
 
             Game.Player.position.x = 1;
             Game.Player.position.y = 1;
@@ -49,11 +49,11 @@ namespace MiniGameProject.Scene
 
         public override void Enter()
         {
-            if (Game.prevSceneName == "HomeScene")
+            if (Game.prevSceneName == Game.Scenes.HomeScene.ToString())
             {
                 Game.Player.position = new Vector2(1, 1);
             }
-            else if (Game.prevSceneName == "ForestFieldScene")
+            else if (Game.prevSceneName == Game.Scenes.ForestFieldScene.ToString())
             {
                 Game.Player.position = new Vector2(6, 1);
             }

@@ -100,49 +100,64 @@
         {
             int clearLines = 4;
 
-            // 1. 출력
-            Console.SetCursorPosition(0, y);
-            Console.WriteLine(new string('-', Console.WindowWidth));
-            Console.WriteLine($"[{speaker}] {text}".PadRight(Console.WindowWidth));
-            Console.WriteLine("(Spacebar를 눌러 계속...)".PadRight(Console.WindowWidth));
-
-            // 2. 입력 대기
-            while (Console.ReadKey(true).Key != ConsoleKey.Spacebar) { }
-
-            // 3. 대사 영역 지우기
+            // 🔧 1. 기존 줄 클리어 (출력 전에 먼저)
             for (int i = 0; i < clearLines; i++)
             {
                 Console.SetCursorPosition(0, y + i);
-                Console.Write(new string(' ', Console.WindowWidth));
+                Console.Write(new string(' ', Console.WindowWidth - 1)); // 🔧 -1 보정
             }
-            //4. 커서 위치 초기화
+
+            // 2. 출력
+            Console.SetCursorPosition(0, y);
+            Console.WriteLine(new string('-', Console.WindowWidth - 1)); // 🔧
+            Console.WriteLine($"[{speaker}] {text}".PadRight(Console.WindowWidth - 1)); // 🔧
+            Console.WriteLine("(Spacebar를 눌러 계속...)".PadRight(Console.WindowWidth - 1)); // 🔧
+
+            // 3. 입력 대기
+            while (Console.ReadKey(true).Key != ConsoleKey.Spacebar) { }
+
+            // 4. 대사 영역 클리어 (마무리로 다시 지움)
+            for (int i = 0; i < clearLines; i++)
+            {
+                Console.SetCursorPosition(0, y + i);
+                Console.Write(new string(' ', Console.WindowWidth - 1)); // 🔧
+            }
+
+            // 5. 커서 위치 복원
             Console.SetCursorPosition(0, y);
         }
 
         public static void ShowAtFixedPositionLines(int y, params string[] lines)
         {
-            int clearLines = lines.Length + 4;
+            int clearLines = lines.Length + 4; // +4: 구분선, 안내, 여유
 
-            // 1. 출력
-            Console.SetCursorPosition(0, y);
-            Console.WriteLine(new string('-', Console.WindowWidth));
-            foreach (var line in lines)
-                Console.WriteLine($" {line}".PadRight(Console.WindowWidth));
-            Console.WriteLine("(Spacebar를 눌러 계속...)".PadRight(Console.WindowWidth));
-
-            // 2. 입력 대기
-            while (Console.ReadKey(true).Key != ConsoleKey.Spacebar) { }
-
-            // 3. 대사 영역 지우기
+            // 1. 클리어
             for (int i = 0; i < clearLines; i++)
             {
                 Console.SetCursorPosition(0, y + i);
-                Console.Write(new string(' ', Console.WindowWidth));
+                Console.Write(new string(' ', Console.WindowWidth - 1));
             }
-            //4. 커서 위치 초기화
+
+            // 2. 출력
+            Console.SetCursorPosition(0, y);
+            Console.WriteLine(new string('-', Console.WindowWidth - 1));
+            foreach (var line in lines)
+                Console.WriteLine($" {line}".PadRight(Console.WindowWidth - 1));
+            Console.WriteLine("(Spacebar를 눌러 계속...)".PadRight(Console.WindowWidth - 1));
+
+            // 3. 입력 대기
+            while (Console.ReadKey(true).Key != ConsoleKey.Spacebar) { }
+
+            // 4. 다시 지우기
+            for (int i = 0; i < clearLines; i++)
+            {
+                Console.SetCursorPosition(0, y + i);
+                Console.Write(new string(' ', Console.WindowWidth - 1));
+            }
+
+            // 5. 커서 복원
             Console.SetCursorPosition(0, y);
         }
-
     }
 
 

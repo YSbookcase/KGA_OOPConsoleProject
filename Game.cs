@@ -39,13 +39,15 @@ namespace MiniGameProject
 
         public static void Start()
         {
+
+
             //게임 설정
             gameOver = false;
 
             // 플레이어 설정
             player = new Player();
 
-
+            //Scene 정보 딕셔너리로 등록
             sceneDic = new Dictionary<string, BasicScene>();
             sceneDic.Add(Scenes.Title.ToString(), new TitleScene());
             sceneDic.Add(Scenes.HomeScene.ToString(), new HomeScene());
@@ -53,10 +55,13 @@ namespace MiniGameProject
             sceneDic.Add(Scenes.ForestFieldScene.ToString(), new ForestFieldScene());
             sceneDic.Add(Scenes.MazeScene.ToString(), new MazeScene());
 
-
-
             curScene = sceneDic[Scenes.Title.ToString()];
             currentSceneName = Scenes.Title.ToString();
+
+            
+
+
+
 
         }
 

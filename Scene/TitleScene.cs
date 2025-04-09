@@ -24,7 +24,7 @@ namespace MiniGameProject.Scene
         public override void Choice()
         {
             Console.WriteLine("1.처음부터");
-            Console.WriteLine("2.어이하기(미구현)");
+            Console.WriteLine("2.어이하기");
             Console.WriteLine("3.게임종료");
 
         }

@@ -31,16 +31,17 @@ namespace MiniGameProject.Scene
             // 3. 게임 오브젝트 초기화
             gameObjects = new List<GameObject>();
 
-            // 4. 플레이어 위치 초기화
-            Game.Player.position.x = 1;
-            Game.Player.position.y = 1;
+ 
 
-            // 5. 출구 설정
+            // 4. 출구 설정
             mapData[mapData.GetLength(0) - 2, mapData.GetLength(1) - 2] = '○';
         }
 
         public override void Enter()
         {
+            // 6. 플레이어 위치 초기화
+            Game.Player.position = new Vector2(1, 1); 
+
             Game.Player.map = map;
         }
     }

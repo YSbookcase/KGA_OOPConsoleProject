@@ -12,7 +12,8 @@ namespace MiniGameProject.Scene
         protected bool[,] map;
         protected List<GameObject> gameObjects;
 
-       
+        protected int dialogueStartY;
+
 
 
         public override void Render()
@@ -29,6 +30,8 @@ namespace MiniGameProject.Scene
             Utility.ShowStatus();
             Utility.ShowHint("방향키, W,A,S,D로 이동하세요. 'I'는 인벤토리. 'K'는 저장 ");
 
+            var (_, currentY) = Console.GetCursorPosition();
+            dialogueStartY = currentY + 1;
         }
 
         public override void Choice()
@@ -89,7 +92,7 @@ namespace MiniGameProject.Scene
                 if (go is Item item && Game.Player.position.Equals(item.position))
                 {
                     item.Interact(Game.Player);
-                    Utility.ShowAtFixedPosition("System", $"{item.name}을(를) 획득했습니다!", Console.GetCursorPosition().Item2 + 1);
+                    Utility.ShowAtFixedPosition("System", $"{item.name}을(를) 획득했습니다!", dialogueStartY);
                     toRemove.Add(item);
                 }
             }
@@ -151,7 +154,7 @@ namespace MiniGameProject.Scene
         protected static void PrintMapComment()
         {
             //Console.WriteLine("초기화를 원한다면 R 키를 눌러주세요.");
-            Console.WriteLine("○까지 도달하면 성공입니다.");
+            //Console.WriteLine("○까지 도달하면 성공입니다.");
             Console.WriteLine("타이틀로 이동하고 싶다면 ESC를 누르세요.");
         }
 

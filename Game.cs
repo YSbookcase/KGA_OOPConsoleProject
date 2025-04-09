@@ -29,7 +29,7 @@ namespace MiniGameProject
             HomeScene,
             FieldNearHomeScene,
             ForestFieldScene,
-            Test2Scene,
+            MazeScene,
             Test3Scene
         };
 
@@ -49,7 +49,9 @@ namespace MiniGameProject
             sceneDic.Add(Scenes.HomeScene.ToString(), new HomeScene());
             sceneDic.Add(Scenes.FieldNearHomeScene.ToString(), new FieldNearHomeScene());
             sceneDic.Add(Scenes.ForestFieldScene.ToString(), new ForestFieldScene());
-            sceneDic.Add(Scenes.Test3Scene.ToString(), new Test3Scene());
+            sceneDic.Add(Scenes.MazeScene.ToString(), new MazeScene());
+
+
 
             curScene = sceneDic[Scenes.Title.ToString()];
             currentSceneName = Scenes.Title.ToString();

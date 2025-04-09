@@ -33,13 +33,18 @@ namespace MiniGameProject
         private int maxHP;
         public int MaxHP { get { return maxHP; } }
 
-
+        //  돈 관련 필드 및 프로퍼티 추가
+        private int gold;
+        public int Gold => gold;
 
         public Player()
         {
             inventory = new Inventory();
             maxHP = 100;
             curHP = maxHP;
+
+            // ✅ 시작 골드 초기화
+            gold = 0;
         }
 
         public void Heal(int amount)

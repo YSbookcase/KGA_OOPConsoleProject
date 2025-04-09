@@ -77,6 +77,7 @@
             Console.WriteLine("┌──────────────────────────────┐");
             Console.WriteLine($"│  플레이어 위치: ({Game.Player.position.x}, {Game.Player.position.y})");
             Console.WriteLine($"│  체력 : {Game.Player.CurHP}/{Game.Player.MaxHP} ");
+            Console.WriteLine($"│  소지 금액 : {Game.Player.Gold} G");
             Console.WriteLine("└──────────────────────────────┘");
         }
 
@@ -87,6 +88,7 @@
             Console.WriteLine("┌──────────────────────────────┐");
             Console.WriteLine($"│  플레이어 위치: ({Game.Player.position.x}, {Game.Player.position.y})");
             Console.WriteLine($"│  체력 : {Game.Player.CurHP}/{Game.Player.MaxHP} ");
+            Console.WriteLine($"│  소지 금액 : {Game.Player.Gold} G");
             Console.WriteLine("└──────────────────────────────┘");
         }
 

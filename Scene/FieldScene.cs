@@ -9,7 +9,7 @@ namespace MiniGameProject.Scene
         protected char[,] mapData;
         protected bool[,] map;
         protected List<GameObject> gameObjects;
-        private bool justReloaded = false;
+       
 
 
 
@@ -39,18 +39,18 @@ namespace MiniGameProject.Scene
 
 
 
-            if (input == ConsoleKey.Spacebar)
-            {
-                Game.Player.x = 1;
-                Game.Player.y = 1;
-            }
-
-            else if (input == ConsoleKey.R)
-            {
-                Console.WriteLine("초기화합니다...");
-                justReloaded = true;
-                Game.ReloadScene();
-            }
+            //if (input == ConsoleKey.Spacebar)
+            //{
+            //    Game.Player.x = 2;
+            //    Game.Player.y = 1;
+            //}
+            
+            //else if (input == ConsoleKey.R)
+            //{
+            //    Console.WriteLine("초기화합니다...");
+            //    justReloaded = true;
+            //    Game.ReloadScene();
+            //}
 
         }
 
@@ -62,28 +62,18 @@ namespace MiniGameProject.Scene
         public override void Result()
         {
 
-
-            foreach (GameObject go in gameObjects)
+            
+                foreach (GameObject go in gameObjects)
             {
-                if (justReloaded)
+                if (go is Place place && Game.Player.position.Equals(place.position))
                 {
-                    justReloaded = false; // 한 번은 무시
+                    Console.Clear();
+                    Console.WriteLine($"해당 장소로 이동합니다.");
+                    Utility.PressAnyKey("");
+                    place.Interact(Game.Player);   // ✅ 씬 전환 실행
+                    Game.CurScene.ResetTransition();
+                    Game.GameOver();
                     return;
-                }
-
-
-                if (go is Place place)
-                {
-                    if (Game.Player.position.Equals(place.position))
-                    {
-                        Console.Clear();
-                        Utility.PressAnyKey($"다시 집으로 들어간다.");
-
-                        place.Interact(Game.Player);   // 🔥 핵심: Interact 호출
-                        Game.CurScene.ResetTransition();
-                        Game.GameOver();
-                        return;
-                    }
                 }
             }
 
@@ -124,9 +114,9 @@ namespace MiniGameProject.Scene
 
         protected static void PrintMapComment()
         {
-            Console.WriteLine("초기화를 원한다면 R 키를 눌러주세요.");
+            //Console.WriteLine("초기화를 원한다면 R 키를 눌러주세요.");
             Console.WriteLine("○까지 도달하면 성공입니다.");
-            Console.WriteLine("시작화면으로 이동하고 싶다면 ESC를 누르세요.");
+            Console.WriteLine("타이틀로 이동하고 싶다면 ESC를 누르세요.");
         }
 
         public override void ResetTransition()

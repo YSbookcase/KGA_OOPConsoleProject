@@ -1,9 +1,4 @@
 ﻿using MiniGameProject.Scene;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiniGameProject
 {
@@ -28,13 +23,15 @@ namespace MiniGameProject
         public static Player Player { get { return player; } }
 
 
-        public enum Scenes 
-        { Title, 
+        public enum Scenes
+        {
+            Title,
             HomeScene,
-            FieldNearHome,
-        Test1Scene, 
-        Test2Scene,
-        Test3Scene};
+            FieldNearHomeScene,
+            ForestFieldScene,
+            Test2Scene,
+            Test3Scene
+        };
 
 
 
@@ -49,9 +46,9 @@ namespace MiniGameProject
 
             sceneDic = new Dictionary<string, BasicScene>();
             sceneDic.Add(Scenes.Title.ToString(), new TitleScene());
-            sceneDic.Add(Scenes.HomeScene.ToString(),new HomeScene());
-            sceneDic.Add(Scenes.FieldNearHome.ToString(), new FieldNearHomeScene());
-            sceneDic.Add(Scenes.Test2Scene.ToString(), new Test2Scene());
+            sceneDic.Add(Scenes.HomeScene.ToString(), new HomeScene());
+            sceneDic.Add(Scenes.FieldNearHomeScene.ToString(), new FieldNearHomeScene());
+            sceneDic.Add(Scenes.ForestFieldScene.ToString(), new ForestFieldScene());
             sceneDic.Add(Scenes.Test3Scene.ToString(), new Test3Scene());
 
             curScene = sceneDic[Scenes.Title.ToString()];
@@ -61,7 +58,7 @@ namespace MiniGameProject
 
         public static void ChangeScene(string sceneName)
         {
-            
+
             prevSceneName = curScene.name;
 
             if (string.IsNullOrEmpty(sceneName))
@@ -95,10 +92,10 @@ namespace MiniGameProject
             while (gameClose == false)
             {
                 // ✅ 루프 진입 전에 반드시 false로 초기화
-                gameOver = false; 
-                
+                gameOver = false;
+
                 while (gameOver == false)
-            {
+                {
                     Console.Clear();
                     curScene.Render();
                     curScene.Choice();
@@ -123,10 +120,6 @@ namespace MiniGameProject
 
             }
         }
-
-
-
-
 
         public static void GameOver()
         {
@@ -153,7 +146,7 @@ namespace MiniGameProject
             Scenes sceneEnum = Enum.Parse<Scenes>(currentSceneName);
             BasicScene newScene = sceneEnum switch
             {
-                Scenes.FieldNearHome => new FieldNearHomeScene(),
+                Scenes.FieldNearHomeScene => new FieldNearHomeScene(),
                 Scenes.HomeScene => new HomeScene(),
                 Scenes.Title => new TitleScene(),
                 _ => null

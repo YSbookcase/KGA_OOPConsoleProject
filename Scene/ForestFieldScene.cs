@@ -4,14 +4,14 @@ namespace MiniGameProject.Scene
 {
 
 
-    public class FieldNearHomeScene : FieldScene
+    public class ForestFieldScene : FieldScene
     {
-        public FieldNearHomeScene()
+        public ForestFieldScene()
         {
-            name = "FieldNearHomeScene";
+            name = "ForestFieldScene";
 
             // 맵 데이터 설정
-            this.mapData = new char[10, 8]
+            this.mapData = new char[8, 8]
             {
             /*0*/{'▒','▒','▒','▒','▒','▒','▒','▒'},
             /*1*/{'▒','.','.','.','.','.','.','▒'},
@@ -20,9 +20,7 @@ namespace MiniGameProject.Scene
             /*4*/{'▒','.','.','.','.','.','.','▒'},
             /*5*/{'▒','.','.','.','.','.','.','▒'},
             /*6*/{'▒','.','.','.','.','.','.','▒'},
-            /*7*/{'▒','.','.','.','.','.','.','▒'},
-            /*8*/{'▒','.','.','.','.','.','.','▒'},
-            /*9*/{'▒','▒','▒','▒','▒','▒','▒','▒'},
+            /*7*/{'▒','▒','▒','▒','▒','▒','▒','▒'},
             };
 
             // 이동 가능 맵 생성
@@ -37,8 +35,8 @@ namespace MiniGameProject.Scene
             }
 
             gameObjects = new List<GameObject>();
-            gameObjects.Add(new Place("HomeScene", 'H', new Vector2(1, 1)));
-            gameObjects.Add(new Place("ForestField", 'F', new Vector2(6, 1)));
+            gameObjects.Add(new Place("FieldNearHomeScene", 'N', new Vector2(1, 1)));
+           
 
             Game.Player.position.x = 1;
             Game.Player.position.y = 1;
@@ -52,10 +50,6 @@ namespace MiniGameProject.Scene
             if (Game.prevSceneName == "HomeScene")
             {
                 Game.Player.position = new Vector2(1, 1);
-            }
-            else if (Game.prevSceneName == "ForestFieldScene")
-            {
-                Game.Player.position = new Vector2(6, 1);
             }
             Game.Player.map = map;
         }

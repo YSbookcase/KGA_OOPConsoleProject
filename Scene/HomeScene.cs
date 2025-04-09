@@ -25,8 +25,9 @@ namespace MiniGameProject.Scene
 
         public override void Choice()
         {
+            Console.WriteLine("어디로 가시겠습니까? ");
             Console.WriteLine("1. 필드로 나간다.");
-            Console.Write("어디로 가시겠습니까? ");
+            
         }
 
         public override void Input()
@@ -44,8 +45,8 @@ namespace MiniGameProject.Scene
             switch (input)
             {
                 case ConsoleKey.D1:
-                    Utility.PressAnyKey("마을 밖으로 나갑니다.");
-                    Game.ChangeScene("FieldNearHome");
+                    Utility.PressAnyKey("밖으로 나갑니다.");
+                    Game.ChangeScene(Game.Scenes.FieldNearHomeScene.ToString());
                     break;
             }
 

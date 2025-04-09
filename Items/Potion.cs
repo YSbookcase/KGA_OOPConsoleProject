@@ -20,12 +20,9 @@ namespace MiniGameProject.Items
 
         public override void Use()
         {
-
+            Game.Player.Heal(30);
         }
 
-        public override void Interact(Player player)
-        {
-            
-        }
+     
     }
 }

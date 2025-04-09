@@ -115,6 +115,8 @@
                 Console.SetCursorPosition(0, y + i);
                 Console.Write(new string(' ', Console.WindowWidth));
             }
+            //4. 커서 위치 초기화
+            Console.SetCursorPosition(0, y);
         }
 
         public static void ShowAtFixedPositionLines(int y, params string[] lines)
@@ -137,6 +139,8 @@
                 Console.SetCursorPosition(0, y + i);
                 Console.Write(new string(' ', Console.WindowWidth));
             }
+            //4. 커서 위치 초기화
+            Console.SetCursorPosition(0, y);
         }
 
     }

@@ -11,7 +11,7 @@ namespace MiniGameProject.Scene
         protected bool[,] map;
         protected List<GameObject> gameObjects;
 
-        private bool hasShownIntro = false;
+       
 
 
         public override void Render()
@@ -27,16 +27,6 @@ namespace MiniGameProject.Scene
             Console.SetCursorPosition(0, map.GetLength(0) + 2);
             Utility.ShowStatus();
             Utility.ShowHint("방향키, W,A,S,D로 이동하세요. 'I'는 인벤토리.");
-
-            if (!hasShownIntro)
-            {
-                var (_, currentY) = Console.GetCursorPosition();
-                int dialogueStartY = currentY + 1;
-
-                Utility.ShowAtFixedPosition( "NPC", "조심해.", dialogueStartY);
-                hasShownIntro = true;
-            }
-           
 
         }
 
@@ -75,15 +65,43 @@ namespace MiniGameProject.Scene
         public override void Result()
         {
 
-            
-                foreach (GameObject go in gameObjects)
+
+            // 1. NPC 상호작용
+            foreach (GameObject go in gameObjects)
+            {
+                if (go is NPC npc && Game.Player.position.Equals(npc.position))
+                {
+                    npc.Interact(Game.Player);
+                    return; // 상호작용 후 종료
+                }
+            }
+
+            // 2. 아이템 습득 처리
+            List<GameObject> toRemove = new List<GameObject>();
+
+            foreach (GameObject go in gameObjects)
+            {
+                if (go is Item item && Game.Player.position.Equals(item.position))
+                {
+                    item.Interact(Game.Player);
+                    Utility.ShowAtFixedPosition("System", $"{item.name}을(를) 획득했습니다!", Console.GetCursorPosition().Item2 + 1);
+                    toRemove.Add(item);
+                }
+            }
+            foreach (GameObject go in toRemove)
+            {
+                gameObjects.Remove(go);
+            }
+
+            // 3. 장소 전환
+            foreach (GameObject go in gameObjects)
             {
                 if (go is Place place && Game.Player.position.Equals(place.position))
                 {
                     Console.Clear();
                     Console.WriteLine($"해당 장소로 이동합니다.");
-                    Utility.PressAnyKey("");
-                    place.Interact(Game.Player);   // ✅ 씬 전환 실행
+                    Utility.PressAnyKey();
+                    place.Interact(Game.Player);
                     Game.CurScene.ResetTransition();
                     Game.GameOver();
                     return;
@@ -96,8 +114,8 @@ namespace MiniGameProject.Scene
                 Console.WriteLine("성공했습니다!");
                 Console.ReadKey();
                 Game.ChangeScene(Game.Scenes.Title.ToString());
-                Game.CurScene.ResetTransition();  // ✅ 이전 입력 제거
-                Game.GameOver();                  // ✅ 루프 종료 → TitleScene 반영
+                Game.CurScene.ResetTransition();  // 씬 초기화
+                Game.GameOver();                  //  루프 종료 후 TitleScene 반영
             }
             else if (input == ConsoleKey.Escape)
             {
@@ -105,7 +123,7 @@ namespace MiniGameProject.Scene
                 Console.WriteLine();
                 Utility.PressAnyKey("타이틀 화면으로 돌아갑니다...");
                 Game.ChangeScene(Game.Scenes.Title.ToString());
-                Game.CurScene.ResetTransition(); // ❗ 여기가 중요
+                Game.CurScene.ResetTransition(); // Scene 초기화
                 Console.WriteLine($"[DEBUG] Result InputKey: {input}");
                 Game.GameOver();
 

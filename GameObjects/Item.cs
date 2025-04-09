@@ -22,7 +22,7 @@ namespace MiniGameProject.GameObjects
 
         public override void Interact(Player player)
         {
-           
+            player.Inventory.AddItem(this);
         }
 
     }

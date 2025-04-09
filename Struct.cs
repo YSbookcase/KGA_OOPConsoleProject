@@ -19,7 +19,15 @@ namespace MiniGameProject
 
         }
 
+        public static bool operator ==(Vector2 left, Vector2 right)
+        {
+            return left.x == right.x && left.y == right.y;
+        }
 
+        public static bool operator !=(Vector2 left, Vector2 right)
+        {
+            return left.x != right.x || left.y != right.y;
+        }
 
 
 

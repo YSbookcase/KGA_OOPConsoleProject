@@ -1,4 +1,5 @@
 ﻿using MiniGameProject.GameObjects;
+using MiniGameProject.Items;
 
 namespace MiniGameProject.Scene
 {
@@ -39,6 +40,13 @@ namespace MiniGameProject.Scene
             gameObjects = new List<GameObject>();
             gameObjects.Add(new Place(Game.Scenes.HomeScene.ToString(), 'H', new Vector2(1, 1)));
             gameObjects.Add(new Place(Game.Scenes.ForestFieldScene.ToString(), 'F', new Vector2(6, 1)));
+            gameObjects.Add(new Potion(new Vector2(1, 5)));
+
+            gameObjects.Add(new NPC(
+    "???",
+    new Vector2(3, 5),
+    "으..으..."
+));
 
             Game.Player.position.x = 1;
             Game.Player.position.y = 1;

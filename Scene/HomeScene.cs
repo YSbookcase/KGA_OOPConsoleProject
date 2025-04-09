@@ -8,8 +8,10 @@ namespace MiniGameProject.Scene
 {
     public class HomeScene : BasicScene
     {
+        #region 필드 및 생성자
 
         private ConsoleKey input;
+
         public HomeScene()
         {
             name = "HomeScene";
@@ -17,12 +19,16 @@ namespace MiniGameProject.Scene
 
         private int visitCount = 0;
 
+        private bool introDialogueShown = false;
+
+        #endregion
+
         public override void Enter()
         {
             visitCount++;
         }
 
-
+      
         public override void Render()
         {
             Console.WriteLine("장소 : 아늑한 나의 집");
@@ -33,19 +39,23 @@ namespace MiniGameProject.Scene
 
             if (visitCount == 1)
             {
-
-                Utility.ShowAtFixedPositionLines(dialogueStartY, "모든 것이 잘 될 것 같은 날이다.", "오늘 하루도 즐겁게 보내자.");
-                Utility.ShowAtFixedPosition("당신", "밖이 뭔가 이상하네 가갈까?", dialogueStartY);
-                Utility.ShowAtFixedPosition("당신", "나가보자", dialogueStartY);
-
+                if (!introDialogueShown)
+                {
+                    Utility.ShowAtFixedPositionLines(dialogueStartY, "모든 것이 잘 될 것 같은 날이다.", "오늘 하루도 즐겁게 보내자.");
+                    Utility.ShowAtFixedPosition("당신", "밖이 뭔가 이상하네 나갈까?", dialogueStartY);
+                    Utility.ShowAtFixedPosition("당신", "나가보자", dialogueStartY);
+                    introDialogueShown = true;
+                }
             }
 
         }
 
         public override void Choice()
         {
+            Console.SetCursorPosition(0, + 2);
             Console.WriteLine();
             Console.WriteLine("어디로 가시겠습니까? ");
+            Console.WriteLine();
             Console.WriteLine("1. 필드로 나간다.");
             
         }
@@ -68,6 +78,7 @@ namespace MiniGameProject.Scene
                     Utility.PressAnyKey("밖으로 나갑니다.");
                     Game.ChangeScene(Game.Scenes.FieldNearHomeScene.ToString());
                     break;
+               
             }
 
 

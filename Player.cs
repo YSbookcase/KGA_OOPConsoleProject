@@ -8,10 +8,12 @@ namespace MiniGameProject
 {
     public class Player
     {
+
         public Vector2 position;
         public bool[,] map;
 
-        public Inventory inventory = new Inventory();
+        private Inventory inventory;
+        public Inventory Inventory { get { return inventory; } }
 
 
         public int x
@@ -26,6 +28,28 @@ namespace MiniGameProject
             set => position.y = value;
         }
 
+        private int curHP;
+        public int CurHP { get { return curHP; } }
+        private int maxHP;
+        public int MaxHP { get { return maxHP; } }
+
+
+
+        public Player()
+        {
+            inventory = new Inventory();
+            maxHP = 100;
+            curHP = maxHP;
+        }
+
+        public void Heal(int amount)
+        {
+            curHP += amount;
+            if (curHP > maxHP)
+            {
+                curHP = maxHP;
+            }
+        }
 
 
         public void Print()
@@ -55,9 +79,9 @@ namespace MiniGameProject
                 case ConsoleKey.D:
                     Move(input, map);
                     break;
-                    //case ConsoleKey.I:
-                    //    inventory.Open();
-                    //    break;
+                    case ConsoleKey.I:
+                        inventory.Open();
+                        break;
             }
         }
 

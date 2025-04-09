@@ -1,4 +1,5 @@
 ﻿using MiniGameProject.GameObjects;
+using static MiniGameProject.Utility;
 
 namespace MiniGameProject.Scene
 {
@@ -9,8 +10,8 @@ namespace MiniGameProject.Scene
         protected char[,] mapData;
         protected bool[,] map;
         protected List<GameObject> gameObjects;
-       
 
+        private bool hasShownIntro = false;
 
 
         public override void Render()
@@ -24,6 +25,18 @@ namespace MiniGameProject.Scene
             Game.Player.Print();
 
             Console.SetCursorPosition(0, map.GetLength(0) + 2);
+            Utility.ShowStatus();
+            Utility.ShowHint("방향키, W,A,S,D로 이동하세요. 'I'는 인벤토리.");
+
+            if (!hasShownIntro)
+            {
+                var (_, currentY) = Console.GetCursorPosition();
+                int dialogueStartY = currentY + 1;
+
+                Utility.ShowAtFixedPosition( "NPC", "조심해.", dialogueStartY);
+                hasShownIntro = true;
+            }
+           
 
         }
 

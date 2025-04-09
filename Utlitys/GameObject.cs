@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniGameProject
+namespace MiniGameProject.Utlitys
 {
     public abstract class GameObject : IInteractable
     {

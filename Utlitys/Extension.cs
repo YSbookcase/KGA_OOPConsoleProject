@@ -1,4 +1,4 @@
-﻿namespace MiniGameProject
+﻿namespace MiniGameProject.Utlitys
 {
     public static class Extension
     {
@@ -58,7 +58,7 @@
                 Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine($" {line}");
-                Utility.PressAnyKey(); // 다음 대사 넘김
+                PressAnyKey(); // 다음 대사 넘김
             }
         }
 
@@ -67,7 +67,7 @@
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine($"[{speaker}] {text}");
-            Utility.PressAnyKey();
+            PressAnyKey();
         }
 
 
@@ -76,7 +76,7 @@
             
             Console.WriteLine("┌──────────────────────────────┐");
             Console.WriteLine($"│  플레이어 위치: ({Game.Player.position.x}, {Game.Player.position.y})");
-            //Console.WriteLine($"│  인벤토리: {Game.Player.inventory.Count()}개 소지 중");
+            Console.WriteLine($"│  체력 : {Game.Player.CurHP}/{Game.Player.MaxHP} ");
             Console.WriteLine("└──────────────────────────────┘");
         }
 
@@ -86,7 +86,7 @@
             Console.WriteLine($"장소 : {descrition}");
             Console.WriteLine("┌──────────────────────────────┐");
             Console.WriteLine($"│  플레이어 위치: ({Game.Player.position.x}, {Game.Player.position.y})");
-            //Console.WriteLine($"│  인벤토리: {Game.Player.inventory.Count()}개 소지 중");
+            Console.WriteLine($"│  체력 : {Game.Player.CurHP}/{Game.Player.MaxHP} ");
             Console.WriteLine("└──────────────────────────────┘");
         }
 

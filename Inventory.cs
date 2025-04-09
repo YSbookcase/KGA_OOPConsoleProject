@@ -1,4 +1,5 @@
 ﻿using MiniGameProject.GameObjects;
+using MiniGameProject.Utlitys;
 
 namespace MiniGameProject
 {
@@ -19,7 +20,7 @@ namespace MiniGameProject
 
         public void AddItem(Item item)
         {
-            Console.WriteLine($"[DEBUG] {item.name} 인벤토리에 추가됨");
+            
             items.Add(item);
             //Console.WriteLine($"[+] '{item.name}'을(를) 인벤토리에 추가했습니다.");
         }
@@ -69,6 +70,21 @@ namespace MiniGameProject
             items[index].Use();
         }
 
+        /// <summary>
+        /// 저장 불러오기 관련
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetItemNames()
+        {
+            return items.Select(item => item.name).ToList();
+        }
+
+        public void Clear()
+        {
+            items.Clear();
+        }
+        ///
+
         public void Open()
         {
             stack.Push("Menu");
@@ -89,7 +105,7 @@ namespace MiniGameProject
 
         private void Menu()
         {
-            Console.WriteLine($"[DEBUG] 현재 아이템 수: {items.Count}");
+            Console.WriteLine($"현재 아이템 수: {items.Count}");
             PrintALL();
 
             Console.WriteLine("1. 사용하기");

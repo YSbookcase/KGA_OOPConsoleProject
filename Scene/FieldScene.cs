@@ -1,5 +1,6 @@
 ﻿using MiniGameProject.GameObjects;
-using static MiniGameProject.Utility;
+using MiniGameProject.Utlitys;
+using static MiniGameProject.Utlitys.Utility;
 
 namespace MiniGameProject.Scene
 {
@@ -26,7 +27,7 @@ namespace MiniGameProject.Scene
 
             Console.SetCursorPosition(0, map.GetLength(0) + 2);
             Utility.ShowStatus();
-            Utility.ShowHint("방향키, W,A,S,D로 이동하세요. 'I'는 인벤토리.");
+            Utility.ShowHint("방향키, W,A,S,D로 이동하세요. 'I'는 인벤토리. 'K'는 저장 ");
 
         }
 
@@ -64,7 +65,11 @@ namespace MiniGameProject.Scene
 
         public override void Result()
         {
-
+            if (input == ConsoleKey.K)
+            {
+                SaveManager.Save();
+                Utility.PressAnyKey("저장되었습니다.");
+            }
 
             // 1. NPC 상호작용
             foreach (GameObject go in gameObjects)
@@ -113,7 +118,7 @@ namespace MiniGameProject.Scene
             {
                 Console.WriteLine("성공했습니다!");
                 Console.ReadKey();
-                Game.ChangeScene(Game.Scenes.Title.ToString());
+                Game.ChangeScene(Game.Scenes.ForestFieldScene.ToString());
                 Game.CurScene.ResetTransition();  // 씬 초기화
                 Game.GameOver();                  //  루프 종료 후 TitleScene 반영
             }

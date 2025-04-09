@@ -51,6 +51,11 @@ namespace MiniGameProject
             }
         }
 
+        public void SetHP(int hp)
+        {
+            curHP = Math.Clamp(hp, 0, maxHP);
+        }
+
 
         public void Print()
         {

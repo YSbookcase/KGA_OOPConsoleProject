@@ -1,4 +1,5 @@
 ﻿using MiniGameProject.GameObjects;
+using MiniGameProject.Utlitys;
 
 namespace MiniGameProject.Scene
 {
@@ -35,14 +36,14 @@ namespace MiniGameProject.Scene
 
             gameObjects = new List<GameObject>();
             gameObjects.Add(new Place(Game.Scenes.FieldNearHomeScene.ToString(), 'N', new Vector2(1, 1)));
-            gameObjects.Add(new Place(Game.Scenes.MazeScene.ToString(), 'Q', new Vector2(6, 1)));
+            gameObjects.Add(new Place(Game.Scenes.MazeScene.ToString(), 'Q', new Vector2(6, 3)));
 
             Game.Player.position.x = 1;
             Game.Player.position.y = 1;
 
 
 
-        }
+        } 
 
         public override void Enter()
         {
@@ -52,7 +53,7 @@ namespace MiniGameProject.Scene
             }
             else if (Game.prevSceneName == Game.Scenes.MazeScene.ToString())
             {
-                Game.Player.position = new Vector2(6, 1);
+                Game.Player.position = new Vector2(6, 3);
             }
             Game.Player.map = map;
         }

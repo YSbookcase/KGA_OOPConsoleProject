@@ -1,4 +1,6 @@
-﻿using MiniGameProject.Scene;
+﻿using MiniGameProject.GameObjects;
+using MiniGameProject.Scene;
+using MiniGameProject.Utlitys;
 
 namespace MiniGameProject
 {
@@ -128,6 +130,27 @@ namespace MiniGameProject
 
             gameOver = true;
 
+        }
+
+
+        public static void LoadGame(SaveData data)
+        {
+            if (data == null) return;
+
+            // 위치, HP
+            Player.position = new Vector2(data.PlayerX, data.PlayerY);
+            Player.SetHP(data.CurHP);
+
+            // 인벤토리 복원
+            Player.Inventory.Clear();
+            foreach (string name in data.InventoryItemNames)
+            {
+                var item = ItemDatabase.CreateItemByName(name);
+                if (item != null)
+                    Player.Inventory.AddItem(item);
+            }
+
+            ChangeScene(data.CurrentSceneName); // 저장된 씬으로 이동
         }
 
 

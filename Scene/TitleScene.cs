@@ -1,4 +1,6 @@
-﻿namespace MiniGameProject.Scene
+﻿using MiniGameProject.Utlitys;
+
+namespace MiniGameProject.Scene
 {
     public class TitleScene : BasicScene
     {
@@ -43,11 +45,26 @@
 
         public override void Result()
         {
+
             switch (input)
             {
                 case ConsoleKey.D1:
                     NextSceneName = Game.Scenes.HomeScene.ToString();
                     ShouldExitScene = true;
+                    break;
+
+                case ConsoleKey.D2:
+                    if (SaveManager.Exists())
+                    {
+                        var data = SaveManager.Load();
+                        Game.LoadGame(data);
+                        ShouldExitScene = false; // 씬 변경 직접 실행했기 때문에 루프 탈출만 막기
+                        Game.GameOver();         // 루프 탈출
+                    }
+                    else
+                    {
+                        Utility.PressAnyKey("⚠ 저장된 게임이 없습니다.");
+                    }
                     break;
 
                 case ConsoleKey.D3:

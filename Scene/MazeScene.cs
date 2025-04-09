@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MiniGameProject.Maze;
+using MiniGameProject.Utlitys;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +32,8 @@ namespace MiniGameProject.Scene
             gameObjects = new List<GameObject>();
 
             // 4. 플레이어 위치 초기화
-            Game.Player.position = new Vector2(1, 1);
+            Game.Player.position.x = 1;
+            Game.Player.position.y = 1;
 
             // 5. 출구 설정
             mapData[mapData.GetLength(0) - 2, mapData.GetLength(1) - 2] = '○';

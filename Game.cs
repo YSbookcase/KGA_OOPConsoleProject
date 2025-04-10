@@ -26,7 +26,7 @@ namespace MiniGameProject
 
 
         public static bool Flag_RescuedNpc = false;
-
+        public static bool EventOn = false;
 
 
         public enum Scenes
@@ -40,34 +40,40 @@ namespace MiniGameProject
         };
 
 
-
-        public static void Start()
+        public static void Reset()
         {
             Utility.SmartClear();
 
-            //게임 설정
-            gameOver = false;
-
-            // 플레이어 설정
+            // 플레이어 재생성
             player = new Player();
 
-            //Scene 정보 딕셔너리로 등록
+            // 플래그 초기화
+            Flag_RescuedNpc = false;
+
+            // 씬 관련 초기화
             sceneDic = new Dictionary<string, BasicScene>();
+            currentSceneName = null;
+            prevSceneName = null;
+
+            // 게임 흐름 플래그
+            gameOver = false;
+            gameClose = false;
+            JustReloaded = false;
+
+            // ✅ 씬 재등록
             sceneDic.Add(Scenes.Title.ToString(), new TitleScene());
             sceneDic.Add(Scenes.HomeScene.ToString(), new HomeScene());
             sceneDic.Add(Scenes.FieldNearHomeScene.ToString(), new FieldNearHomeScene());
             sceneDic.Add(Scenes.ForestFieldScene.ToString(), new ForestFieldScene());
             sceneDic.Add(Scenes.MazeScene.ToString(), new MazeScene());
 
+            // 처음 씬으로 설정
             curScene = sceneDic[Scenes.Title.ToString()];
             currentSceneName = Scenes.Title.ToString();
-
-            
-
-
-
-
         }
+
+
+
 
         public static void ChangeScene(string sceneName)
         {
@@ -99,11 +105,11 @@ namespace MiniGameProject
             // 🔽 커서 숨기기
             Console.CursorVisible = false;
 
-
-            Start();
+            Reset();
 
             while (gameClose == false)
             {
+                
                 // ✅ 루프 진입 전에 반드시 false로 초기화
                 gameOver = false;
 
@@ -164,11 +170,6 @@ namespace MiniGameProject
 
 
 
-        public static void End()
-        {
-
-
-        }
 
 
         public static void ReloadScene()

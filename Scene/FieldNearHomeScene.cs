@@ -8,6 +8,11 @@ namespace MiniGameProject.Scene
 
     public class FieldNearHomeScene : FieldScene
     {
+        protected override string? GetEnterMessage()
+        => "당신은 집 근처의 들판에 도착했습니다.";
+
+     
+
         public FieldNearHomeScene()
         {
             name = Game.Scenes.FieldNearHomeScene.ToString();
@@ -91,13 +96,6 @@ namespace MiniGameProject.Scene
 
 
 
-        private SceneEvent entryMessage = new SceneEvent(() =>
-        {
-            Utility.ShowSimpleMessage("System", "이곳은 황량한 들판입니다...");
-            Utility.PressAnyKey();
-        });
-
-
 
 
         public override void Enter()
@@ -114,7 +112,7 @@ namespace MiniGameProject.Scene
             }
             Game.Player.map = map;
 
-            entryMessage.TryTrigger();
+            
 
         }
 

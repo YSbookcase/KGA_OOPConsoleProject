@@ -22,7 +22,9 @@ namespace MiniGameProject.Utlitys
                 PlayerX = Game.Player.x,
                 PlayerY = Game.Player.y,
                 CurHP = Game.Player.CurHP,
-                InventoryItemNames = Game.Player.Inventory.GetItemNames()
+                InventoryItemNames = Game.Player.Inventory.GetItemNames(),
+                Flag_RescuedNpc = Game.Flag_RescuedNpc,
+                EventOn = Game.EventOn
             };
 
             string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });

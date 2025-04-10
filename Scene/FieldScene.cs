@@ -1,6 +1,5 @@
 ﻿using MiniGameProject.GameObjects;
 using MiniGameProject.Utlitys;
-using static MiniGameProject.Utlitys.Utility;
 
 namespace MiniGameProject.Scene
 {
@@ -13,6 +12,10 @@ namespace MiniGameProject.Scene
         protected List<GameObject> gameObjects;
 
         protected int dialogueStartY;
+        private string? enterMessage;
+        private bool hasShownMessage = false;
+
+        protected virtual string? GetEnterMessage() => null;
 
 
 
@@ -30,7 +33,20 @@ namespace MiniGameProject.Scene
             Utility.ShowStatus();
             Utility.ShowHint("방향키, W,A,S,D로 이동하세요. 'I'는 인벤토리. 'K'는 저장 ");
 
+            if (!hasShownMessage)
+            {
+                hasShownMessage = true;
+                var msg = GetEnterMessage();
+                if (!string.IsNullOrEmpty(msg))
+                {
+                    Utility.ShowBox("System", msg);
+               
+                }
+            }
+           
+
             var (_, currentY) = Console.GetCursorPosition();
+
             dialogueStartY = currentY + 1;
 
             if (currentY >= Console.WindowHeight - 2)
@@ -57,7 +73,7 @@ namespace MiniGameProject.Scene
             //    Game.Player.x = 2;
             //    Game.Player.y = 1;
             //}
-            
+
             //else if (input == ConsoleKey.R)
             //{
             //    Console.WriteLine("초기화합니다...");
@@ -102,6 +118,8 @@ namespace MiniGameProject.Scene
                 } // 3. 장소 전환
                 else if (go is Place place && Game.Player.position.Equals(place.position))
                 {
+                    
+
                     Console.Clear();
                     Console.WriteLine($"해당 장소로 이동합니다.");
                     Utility.PressAnyKey();
@@ -110,7 +128,12 @@ namespace MiniGameProject.Scene
                     Game.GameOver();
                     return; // 장소 이동 후 종료
                 }
-                
+                else if (go.position.Equals(Game.Player.position))
+                {
+                    go.Interact(Game.Player);
+                    return;
+                }
+
 
 
             }
@@ -134,13 +157,25 @@ namespace MiniGameProject.Scene
             }
             else if (input == ConsoleKey.Escape)
             {
+                
+                
                 Console.Clear();
                 Console.WriteLine();
-                Utility.PressAnyKey("타이틀 화면으로 돌아갑니다...");
-                Game.ChangeScene(Game.Scenes.Title.ToString());
-                Game.CurScene.ResetTransition(); // Scene 초기화
-                Console.WriteLine($"[DEBUG] Result InputKey: {input}");
-                Game.GameOver();
+                Console.WriteLine("정말로 타이틀 화면으로 돌아갑니까? Y/N");
+                Console.WriteLine("기존의 플레이 데어터가 초기화 됩니다.");
+                var confirm = Console.ReadKey(true).Key;
+                if (confirm == ConsoleKey.Y)
+                {
+                    Console.Clear();
+                    Utility.PressAnyKey("타이틀 화면으로 돌아갑니다...");
+                    Game.ChangeScene(Game.Scenes.Title.ToString());
+                    //Game.CurScene.ResetTransition(); // Scene 초기화
+                    Game.Reset();
+                    Console.WriteLine($"[DEBUG] Result InputKey: {input}");
+                    Game.GameOver();
+                }
+               
+                
 
             }
         }
@@ -162,6 +197,7 @@ namespace MiniGameProject.Scene
         {
             //Console.WriteLine("초기화를 원한다면 R 키를 눌러주세요.");
             //Console.WriteLine("○까지 도달하면 성공입니다.");
+            Console.WriteLine();
             Console.WriteLine("타이틀로 이동하고 싶다면 ESC를 누르세요.");
         }
 

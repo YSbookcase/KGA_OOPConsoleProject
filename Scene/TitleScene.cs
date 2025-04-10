@@ -50,6 +50,7 @@ namespace MiniGameProject.Scene
             {
                 case ConsoleKey.D1:
                     NextSceneName = Game.Scenes.HomeScene.ToString();
+                   
                     ShouldExitScene = true;
                     break;
 

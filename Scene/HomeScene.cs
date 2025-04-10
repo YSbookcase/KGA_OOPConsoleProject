@@ -21,7 +21,7 @@ namespace MiniGameProject.Scene
         private int visitCount = 0;
 
         private bool introDialogueShown = false;
-
+        
         #endregion
 
         public override void Enter()
@@ -64,7 +64,9 @@ namespace MiniGameProject.Scene
                 Utility.ShowAtFixedPosition("System", "시간은 흘러 우연히 만든 인연이 좋게 흘러가는 듯 했으나...", dialogueStartY);
                 Utility.ShowAtFixedPosition("System", "그녀가 사라졌다.", dialogueStartY);
 
+
                 Game.Flag_RescuedNpc = false;
+                Game.EventOn = true;
 
             }
 

@@ -51,20 +51,11 @@
                 Console.ReadKey(true);
         }
 
-        public static void Show(params string[] lines)
-        {
-            foreach (var line in lines)
-            {
-                Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine($" {line}");
-                PressAnyKey(); // 다음 대사 넘김
-            }
-        }
+
 
         public static void ShowBox(string speaker, string text)
         {
-            Console.Clear();
+            Console.WriteLine(new string('-', Console.WindowWidth - 1));
             Console.WriteLine();
             Console.WriteLine($"[{speaker}] {text}");
             PressAnyKey();
@@ -153,6 +144,7 @@
                 Console.Write(new string(' ', Console.WindowWidth - 1));
             }
 
+          
             // 2. 출력
             Console.SetCursorPosition(0, y);
             Console.WriteLine(new string('-', Console.WindowWidth - 1));

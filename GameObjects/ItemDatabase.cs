@@ -9,6 +9,7 @@ namespace MiniGameProject.GameObjects
 {
     public static class ItemDatabase
     {
+        //저장 기능에 활용됨.
         public static Item CreateItemByName(string name)
         {
             return name switch

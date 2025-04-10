@@ -24,7 +24,7 @@ namespace MiniGameProject
 
         public static Player Player { get { return player; } }
 
-        public static int HomeSceneVisitCount = 0;
+        public static int  HomeSceneVisitCount = 0;
         public static bool Flag_RescuedNpc = false;
         public static bool EventOn = false;
         public static bool Flag_Final = false;
@@ -60,6 +60,10 @@ namespace MiniGameProject
             gameOver = false;
             gameClose = false;
             JustReloaded = false;
+            HomeSceneVisitCount = 0;
+            Flag_RescuedNpc = false;
+            EventOn = false;
+            Flag_Final = false;
 
             // ✅ 씬 재등록
             sceneDic.Add(Scenes.Title.ToString(), new TitleScene());

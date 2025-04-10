@@ -166,8 +166,6 @@ namespace MiniGameProject.Scene
                 {
                     Console.Clear();
                     Utility.PressAnyKey("타이틀 화면으로 돌아갑니다...");
-                    Game.ChangeScene(Game.Scenes.Title.ToString());
-                    //Game.CurScene.ResetTransition(); // Scene 초기화
                     Game.Reset();
                     Console.WriteLine($"[DEBUG] Result InputKey: {input}");
                     Game.GameOver();

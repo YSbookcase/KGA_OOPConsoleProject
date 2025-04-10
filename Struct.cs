@@ -33,7 +33,5 @@ namespace MiniGameProject
 
     }
 
-    class Struct
-    {
-    }
+
 }

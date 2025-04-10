@@ -24,7 +24,7 @@ namespace MiniGameProject
 
         public static Player Player { get { return player; } }
 
-
+        public static int HomeSceneVisitCount = 0;
         public static bool Flag_RescuedNpc = false;
         public static bool EventOn = false;
         public static bool Flag_Final = false;

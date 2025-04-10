@@ -53,7 +53,7 @@ namespace MiniGameProject.Scene
             gameObjects.Add(new Potion(new Vector2(1, 5)));
 
 
-            if (Game.Flag_RescuedNpc != true)
+            if (Game.EventOn != true    )
             {
                 gameObjects.Add(new NPC(
                  "이름 모를 여성",

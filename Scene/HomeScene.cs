@@ -18,7 +18,7 @@ namespace MiniGameProject.Scene
             name = "HomeScene";
         }
 
-        private int visitCount = 0;
+   
 
         private bool introDialogueShown = false;
         
@@ -26,7 +26,7 @@ namespace MiniGameProject.Scene
 
         public override void Enter()
         {
-            visitCount++;
+            Game.HomeSceneVisitCount++;
         }
 
       
@@ -40,7 +40,7 @@ namespace MiniGameProject.Scene
             var (_, currentY) = Console.GetCursorPosition();
             int dialogueStartY = currentY + 1;
 
-            if (visitCount == 1)
+            if (Game.HomeSceneVisitCount == 1)
             {
                 if (!introDialogueShown)
                 {

@@ -24,7 +24,8 @@ namespace MiniGameProject.Utlitys
                 CurHP = Game.Player.CurHP,
                 InventoryItemNames = Game.Player.Inventory.GetItemNames(),
                 Flag_RescuedNpc = Game.Flag_RescuedNpc,
-                EventOn = Game.EventOn
+                EventOn = Game.EventOn,
+                HomeSceneVisitCount = Game.HomeSceneVisitCount
             };
 
             string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });

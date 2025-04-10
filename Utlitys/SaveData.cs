@@ -15,6 +15,8 @@ namespace MiniGameProject.Utlitys
         public List<string> InventoryItemNames { get; set; } = new();
         public bool EventOn { get; set; }
         public bool Flag_RescuedNpc { get; set; }
+
+        public int HomeSceneVisitCount { get; set; }
     }
 
 }

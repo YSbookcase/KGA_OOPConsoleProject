@@ -80,57 +80,27 @@ namespace MiniGameProject.Scene
                 Utility.PressAnyKey("저장되었습니다.");
             }
 
-            // 1. NPC 상호작용
-            foreach (GameObject go in gameObjects)
-            {
-                if (go is NPC npc && Game.Player.position.Equals(npc.position))
-                {
-                    npc.Interact(Game.Player);
-                    return; // 상호작용 후 종료
-                }
-            }
-
-            // 2. 아이템 습득 처리
             List<GameObject> toRemove = new List<GameObject>();
 
             foreach (GameObject go in gameObjects)
             {
-                if (go is Item item && Game.Player.position.Equals(item.position))
-                {
-                    item.Interact(Game.Player);
-                    Utility.ShowAtFixedPosition("System", $"{item.name}을(를) 획득했습니다!", dialogueStartY);
-                    toRemove.Add(item);
-                }
-            }
-            foreach (GameObject go in toRemove)
-            {
-                gameObjects.Remove(go);
-            }
-
-            foreach (GameObject go in gameObjects)
-            {
+                // 1. NPC 상호작용
                 if (go is NPC npc && Game.Player.position.Equals(npc.position))
                 {
                     npc.Interact(Game.Player);
 
-                    // 대화 이후 제거 조건
                     if (Game.Flag_RescuedNpc)
-                    {
                         toRemove.Add(npc);
-                    }
-                }
-            }
 
-            foreach (GameObject go in toRemove)
-            {
-                gameObjects.Remove(go);
-            }
+                }// 2. 아이템 습득 처리
+                else if (go is Item item && Game.Player.position.Equals(item.position))
+                {
+                    item.Interact(Game.Player);
+                    Utility.ShowAtFixedPosition("System", $"{item.name}을(를) 획득했습니다!", dialogueStartY);
+                    toRemove.Add(item);
 
-
-            // 3. 장소 전환
-            foreach (GameObject go in gameObjects)
-            {
-                if (go is Place place && Game.Player.position.Equals(place.position))
+                } // 3. 장소 전환
+                else if (go is Place place && Game.Player.position.Equals(place.position))
                 {
                     Console.Clear();
                     Console.WriteLine($"해당 장소로 이동합니다.");
@@ -138,9 +108,20 @@ namespace MiniGameProject.Scene
                     place.Interact(Game.Player);
                     Game.CurScene.ResetTransition();
                     Game.GameOver();
-                    return;
+                    return; // 장소 이동 후 종료
                 }
+                
+
+
             }
+
+            //EX. 제거될 NPC 및 Item 제거
+            foreach (GameObject go in toRemove)
+            {
+                gameObjects.Remove(go);
+            }
+
+
 
             // 성공 판정 등 가능
             if (mapData[Game.Player.y, Game.Player.x] == '○')

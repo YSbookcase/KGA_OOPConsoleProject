@@ -60,18 +60,34 @@ namespace MiniGameProject.Scene
                 Utility.ShowAtFixedPosition("여자", "고맙습니다. 구해주셔서....", dialogueStartY);
                 Utility.ShowAtFixedPosition("여자", "혹시 여기가 어디지요?", dialogueStartY);
                 Utility.ShowAtFixedPosition("당신", "변방에 조그만 유유자적 할 수 있는 동네지요.", dialogueStartY);
+                Utility.ShowAtFixedPosition("여자", "네, 그렇군요.", dialogueStartY);
+                Utility.ShowAtFixedPosition("System", "시간은 흘러 우연히 만든 인연이 좋게 흘러가는 듯 했으나...", dialogueStartY);
+                Utility.ShowAtFixedPosition("System", "그녀가 사라졌다.", dialogueStartY);
+
+                Game.Flag_RescuedNpc = false;
+
             }
 
         }
 
         public override void Choice()
         {
+            if (false)
+            {
+
+            }
+            else
+            { 
             Console.SetCursorPosition(0, + 2);
             Console.WriteLine();
             Console.WriteLine("어디로 가시겠습니까? ");
             Console.WriteLine();
             Console.WriteLine("1. 필드로 나간다.");
+            }
             
+
+
+
         }
 
         public override void Input()

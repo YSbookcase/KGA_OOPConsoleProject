@@ -98,6 +98,13 @@
             Console.WriteLine($"힌트: {text}".PadRight(Console.WindowWidth));
         }
 
+        public static void ShowSimpleMessage(string speaker, string message)
+        {
+            int y = Console.WindowHeight - 6;
+            ShowAtFixedPosition(speaker, message, y);
+        }
+
+
         public static void ShowAtFixedPosition(string speaker, string text, int y)
         {
             int clearLines = 4;

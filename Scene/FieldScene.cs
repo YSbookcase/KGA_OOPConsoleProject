@@ -17,6 +17,8 @@ namespace MiniGameProject.Scene
 
         protected virtual string? GetEnterMessage() => null;
 
+        int px = Game.Player.position.x;
+        int py = Game.Player.position.y;
 
 
         public override void Render()
@@ -32,6 +34,7 @@ namespace MiniGameProject.Scene
             Console.SetCursorPosition(0, map.GetLength(0) + 2);
             Utility.ShowStatus();
             Utility.ShowHint("방향키, W,A,S,D로 이동하세요. 'I'는 인벤토리. 'K'는 저장 ");
+          
 
             if (!hasShownMessage)
             {
@@ -40,10 +43,10 @@ namespace MiniGameProject.Scene
                 if (!string.IsNullOrEmpty(msg))
                 {
                     Utility.ShowBox("System", msg);
-               
+
                 }
             }
-           
+
 
             var (_, currentY) = Console.GetCursorPosition();
 
@@ -118,7 +121,7 @@ namespace MiniGameProject.Scene
                 } // 3. 장소 전환
                 else if (go is Place place && Game.Player.position.Equals(place.position))
                 {
-                    
+
 
                     Console.Clear();
                     Console.WriteLine($"해당 장소로 이동합니다.");
@@ -133,6 +136,8 @@ namespace MiniGameProject.Scene
                     go.Interact(Game.Player);
                     return;
                 }
+         
+            
 
 
 
@@ -147,18 +152,11 @@ namespace MiniGameProject.Scene
 
 
             // 성공 판정 등 가능
-            if (mapData[Game.Player.y, Game.Player.x] == '○')
+            
+            if (input == ConsoleKey.Escape)
             {
-                Console.WriteLine("성공했습니다!");
-                Console.ReadKey();
-                Game.ChangeScene(Game.Scenes.ForestFieldScene.ToString());
-                Game.CurScene.ResetTransition();  // 씬 초기화
-                Game.GameOver();                  //  루프 종료 후 TitleScene 반영
-            }
-            else if (input == ConsoleKey.Escape)
-            {
-                
-                
+
+
                 Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine("정말로 타이틀 화면으로 돌아갑니까? Y/N");
@@ -174,10 +172,10 @@ namespace MiniGameProject.Scene
                     Console.WriteLine($"[DEBUG] Result InputKey: {input}");
                     Game.GameOver();
                 }
-               
-                
+
 
             }
+   
         }
 
         protected static void PrintMap(char[,] map)

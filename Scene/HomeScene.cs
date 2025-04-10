@@ -70,12 +70,34 @@ namespace MiniGameProject.Scene
 
             }
 
+            if (Game.Flag_Final)
+            {
+                Utility.ShowAtFixedPosition("속마음", "겨우겨우 미로를 탈출해서 집에 도달했다.", dialogueStartY);
+                Utility.ShowAtFixedPosition("속마음", "내가 지낼 수 있는 집으로 말이다.", dialogueStartY);
+                Utility.ShowAtFixedPosition("속마음", "아직도 어찌된 영문인지는 모르겠지만...", dialogueStartY);
+                Utility.ShowAtFixedPosition("속마음", "그녀는 내 곁에 있기로 했다.", dialogueStartY);
+                Utility.ShowAtFixedPosition("속마음", "유유히... 유유히...", dialogueStartY);
+                Utility.ShowAtFixedPosition("속마음", "다른 선택지도 있었던 것일까?", dialogueStartY);
+                Utility.ShowAtFixedPosition("속마음", "상쾌한 바람이 불어온다.", dialogueStartY);
+                Utility.ShowAtFixedPosition("System", "운명인진 모르겠으나 인연인듯 하다.", dialogueStartY);
+                Utility.ShowAtFixedPosition("System", "그녀가 나타난 것이 말이다...", dialogueStartY);
+
+
+                
+
+            }
+
+
         }
 
         public override void Choice()
         {
-            if (false)
+            if (Game.Flag_Final)
             {
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine("콘솔 게임을 플레이 해주셔서 감사합니다. ");
+                Utility.PressAnyKey();
 
             }
             else
@@ -111,6 +133,15 @@ namespace MiniGameProject.Scene
                     Game.ChangeScene(Game.Scenes.FieldNearHomeScene.ToString());
                     break;
                
+            }
+
+            if (Game.Flag_Final)
+            {
+                Console.Clear();
+                Console.WriteLine();
+                Utility.PressAnyKey("타이틀 화면으로 돌아갑니다...");
+                Game.Reset();
+                Game.GameOver();
             }
 
 

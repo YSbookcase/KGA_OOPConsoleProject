@@ -1,4 +1,5 @@
-﻿using MiniGameProject.Maze;
+﻿using MiniGameProject.GameObjects;
+using MiniGameProject.Maze;
 using MiniGameProject.Utlitys;
 using System;
 using System.Collections.Generic;
@@ -31,17 +32,23 @@ namespace MiniGameProject.Scene
             // 3. 게임 오브젝트 초기화
             gameObjects = new List<GameObject>();
 
- 
 
-            // 4. 출구 설정
-            mapData[mapData.GetLength(0) - 2, mapData.GetLength(1) - 2] = '○';
+            // 4. 출구 위치 설정
+            int exitY = mapData.GetLength(0) - 2;
+            int exitX = mapData.GetLength(1) - 2;
+
+            // 5. 출구 타일 표시
+            mapData[exitY, exitX] = 'E';    // 시각적으로도 출구
+            map[exitY, exitX] = true;       // 이동 가능 설정
+
+            // 6. Place 오브젝트 생성 (출구)
+            var exitPos = new Vector2(exitX, exitY); // Vector2(x, y)
+            gameObjects.Add(new Place(Game.Scenes.FinalScene.ToString(), 'E', exitPos));
         }
 
         public override void Enter()
         {
-            // 6. 플레이어 위치 초기화
-            Game.Player.position = new Vector2(1, 1); 
-
+            Game.Player.position = new Vector2(1, 1);
             Game.Player.map = map;
         }
     }

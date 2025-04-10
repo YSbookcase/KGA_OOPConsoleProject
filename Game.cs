@@ -27,7 +27,7 @@ namespace MiniGameProject
 
         public static bool Flag_RescuedNpc = false;
         public static bool EventOn = false;
-
+        public static bool Flag_Final = false;
 
         public enum Scenes
         {
@@ -36,7 +36,8 @@ namespace MiniGameProject
             FieldNearHomeScene,
             ForestFieldScene,
             MazeScene,
-            Test3Scene
+            FinalScene,
+            FinalMazeScene
         };
 
 
@@ -66,6 +67,8 @@ namespace MiniGameProject
             sceneDic.Add(Scenes.FieldNearHomeScene.ToString(), new FieldNearHomeScene());
             sceneDic.Add(Scenes.ForestFieldScene.ToString(), new ForestFieldScene());
             sceneDic.Add(Scenes.MazeScene.ToString(), new MazeScene());
+            sceneDic.Add(Scenes.FinalScene.ToString(), new FinalScene());
+            sceneDic.Add(Scenes.FinalMazeScene.ToString(), new FinalMazeScene());
 
             // 처음 씬으로 설정
             curScene = sceneDic[Scenes.Title.ToString()];

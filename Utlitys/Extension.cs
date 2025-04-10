@@ -52,13 +52,29 @@
         }
 
 
+        public static void Show( string text)
+        {
+            Console.WriteLine(new string('-', Console.WindowWidth - 1));
+          
+                Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine();
+            Console.WriteLine($"{text}");
+            Console.ResetColor();
+            Console.WriteLine("(Spacebar를 눌러 계속...)".PadRight(Console.WindowWidth - 1));
+
+            // 입력 대기
+            while (Console.ReadKey(true).Key != ConsoleKey.Spacebar) { }
+        }
 
         public static void ShowBox(string speaker, string text)
         {
             Console.WriteLine(new string('-', Console.WindowWidth - 1));
             Console.WriteLine();
             Console.WriteLine($"[{speaker}] {text}");
-            PressAnyKey();
+            Console.WriteLine("(Spacebar를 눌러 계속...)".PadRight(Console.WindowWidth - 1));
+
+            // 입력 대기
+            while (Console.ReadKey(true).Key != ConsoleKey.Spacebar) { }
         }
 
 
@@ -69,6 +85,7 @@
             Console.WriteLine($"│  플레이어 위치: ({Game.Player.position.x}, {Game.Player.position.y})");
             Console.WriteLine($"│  체력 : {Game.Player.CurHP}/{Game.Player.MaxHP} ");
             Console.WriteLine($"│  소지 금액 : {Game.Player.Gold} G");
+          
             Console.WriteLine("└──────────────────────────────┘");
         }
 
